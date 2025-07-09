@@ -1,26 +1,53 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+// import { RouterLink, RouterView } from 'vue-router';
+import { RouterView } from 'vue-router';
+// import HelloWorld from './components/HelloWorld.vue';
+import { onMounted } from 'vue';
+import { getResource, setCSSRootVariables } from './utils/utils';
+import AppHeader from './components/AppHeader.vue';
+onMounted(() => {
+  setCSSRootVariables(
+    { key: 'main-bg-color', value: '#b1fcf9' },
+    { key: 'landscape-bg', value: `url('${getResource('/img/background-pc.jpg')}')` },
+    { key: 'portrait-bg', value: `url('${getResource('/img/background-mobile.jpg')}')` },
+    {
+      key: 'resource-base',
+      value: import.meta.env.MODE === 'production' ? '/resources/' : 'http://localhost:7777/resources/',
+    },
+  );
+  document.getElementById('app')?.classList.add('container-xl');
+});
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
+  <AppHeader />
+  <!-- <<header>
+    img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>
-  </header>
-
+  </header>-->
   <RouterView />
 </template>
 
-<style scoped>
+<style global lang="scss">
+body {
+  background: #000000;
+}
+
+#app {
+  background: #b1fcf9 url('#{$resource-base}img/background-pc.jpg') no-repeat top center !important;
+  background-size: 100% auto !important;
+  min-height: 100vh;
+  position: relative;
+}
+</style>
+
+<!-- <style scoped>
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -82,4 +109,4 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
-</style>
+</style> -->

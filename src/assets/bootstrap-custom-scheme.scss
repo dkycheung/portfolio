@@ -1,0 +1,12 @@
+// 1. Override Bootstrap color variables BEFORE importing Bootstrap
+// $primary: #4f8cff;
+// $secondary: #ffb347;
+// $success: #28a745;
+// $danger: #dc3545;
+// $info: #17a2b8;
+// $warning: #ffc107;
+// $light: #f8f9fa;
+// $dark: #343a40;
+
+// 2. Import Bootstrap's SCSS
+@import 'bootstrap/scss/bootstrap.scss';
