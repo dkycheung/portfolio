@@ -8,7 +8,8 @@ import inject from '@rollup/plugin-inject';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? '/portfolio/' : '/',
+  // base: process.env.NODE_ENV === 'production' ? '/portfolio/' : '/',
+  base: '/portfolio/',
   plugins: [vue(), vueJsx(), vueDevTools(), inject({ $: 'jquery', jQuery: 'jquery' })],
   resolve: {
     alias: {
@@ -19,8 +20,11 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         silenceDeprecations: ['import', 'mixed-decls', 'color-functions', 'global-builtin'],
-        additionalData: `@import '@/assets/bootstrap-custom-scheme.scss';
-         $resource-base: '${process.env.NODE_ENV === 'production' ? '/resources/' : 'http://127.0.0.1:7777/'}';`,
+        additionalData: `@import '@/assets/main.scss';
+        $resource-base: '/resources/';
+        `,
+        // additionalData: `@import '@/assets/main.scss';
+        //  $resource-base: '${process.env.NODE_ENV === 'production' ? '/resources/' : 'http://127.0.0.1:7777/'}';`,
       },
     },
   },

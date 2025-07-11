@@ -1,0 +1,10 @@
+@import 'bootstrap-custom-scheme.scss';
+
+@mixin outline-text($textcolor: white, $bordercolor: black, $thickness: 2px) {
+  color: $textcolor; /* Text color */
+  text-shadow:
+    (-$thickness) (-$thickness) 0 $bordercolor,
+    $thickness (-$thickness) 0 $bordercolor,
+    (-$thickness) $thickness 0 $bordercolor,
+    $thickness $thickness 0 $bordercolor;
+}
