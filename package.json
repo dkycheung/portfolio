@@ -23,6 +23,7 @@
   "devDependencies": {
     "@rollup/plugin-inject": "^5.0.5",
     "@tsconfig/node22": "^22.0.2",
+    "@types/fs-extra": "^11.0.4",
     "@types/jquery": "^3.5.32",
     "@types/node": "^22.15.32",
     "@vitejs/plugin-vue": "^6.0.0",
@@ -32,6 +33,7 @@
     "@vue/tsconfig": "^0.7.0",
     "eslint": "^9.29.0",
     "eslint-plugin-vue": "~10.2.0",
+    "fs-extra": "^11.3.0",
     "jiti": "^2.4.2",
     "npm-run-all2": "^8.0.4",
     "prettier": "3.5.3",
