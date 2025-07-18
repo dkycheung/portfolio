@@ -9,6 +9,7 @@
     }
   ],
   "compilerOptions": {
-    "types": ["jquery", "./types/baffer.d.ts"]
+    // "types": ["jquery", "./types/baffer.d.ts"]
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   }
 }
