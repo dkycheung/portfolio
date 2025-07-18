@@ -46,7 +46,7 @@ class BouncingIcon {
       this.dy *= -1;
       axis.push('y');
     }
-    if (axis.length > 0) console.debug(`Flipped direction for icon on ${axis.join(', ')} axis`, dir);
+    // if (axis.length > 0) console.debug(`Flipped direction for icon on ${axis.join(', ')} axis`, dir);
   }
 
   trimPositionToBoundary(
@@ -66,11 +66,11 @@ class BouncingIcon {
     } else if (checkResult.bottom) {
       this.y = boundary.height - rect.height;
     }
-    if (checkResult.left || checkResult.right || checkResult.top || checkResult.bottom)
-      console.debug(
-        `Trimmed icon to (l:${this.x}, t:${this.y}, r:${rect.right}, b:${rect.bottom}) within boundary (${boundary.width}, ${boundary.height})`,
-        checkResult,
-      );
+    // if (checkResult.left || checkResult.right || checkResult.top || checkResult.bottom)
+    //   console.debug(
+    //     `Trimmed icon to (l:${this.x}, t:${this.y}, r:${rect.right}, b:${rect.bottom}) within boundary (${boundary.width}, ${boundary.height})`,
+    //     checkResult,
+    //   );
   }
 
   updatePosition(): void {
@@ -133,7 +133,7 @@ export default class BouncingIcons {
         });
       })
       .get();
-    console.debug({ icons: this.icons, boundary: { w: boundary.width(), h: boundary.height() } });
+    // console.debug({ icons: this.icons, boundary: { w: boundary.width(), h: boundary.height() } });
     this.interval = 1000 / fps;
     this.lastUpdate = Date.now();
     this.animationId = null;

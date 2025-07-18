@@ -40,7 +40,8 @@ body {
 }
 
 #app {
-  background: #b1fcf9 url('#{$resource-base}img/background-pc.jpg') no-repeat top center !important;
+  // background: #b1fcf9 url('#{$resource-base}img/background-pc.jpg') no-repeat top center !important;
+  background: #000000 url('#{$resource-base}img/background-pc.jpg') no-repeat top center !important;
   background-size: 100% auto !important;
   min-height: 100vh;
   position: relative;
