@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS", // Required for Express
+    "outDir": "../dist-server",
+    "composite": true,
+    "esModuleInterop": true,
+    "types": ["node"] // Node-specific types
+  },
+  "include": ["**/*.ts"]
+}

@@ -45,7 +45,8 @@ onMounted(() => {
   <main ref="main" class="boundary">
     <BouncingIcon v-for="(icon, index) in homeviewList" :key="index"><component :is="icon" /> </BouncingIcon>
     <!-- <TheWelcome /> -->
-    <div class="container title">
+    <div class="container-fluid w-100 h-100 d-flex p-0 title">
+      <div class="main-panel"><RouterLink to="/about" class="btn">About</RouterLink></div>
       <h1 class="name">Dennis Cheung</h1>
       <h2 class="role1">Web Developer</h2>
       <h2 class="role2">Programmer</h2>
@@ -68,16 +69,19 @@ onMounted(() => {
 }
 
 .name {
-  @include outline-text(black, $secondary, 4px);
-  font-size: 9vw;
+  @include outline-text(silver, $secondary, 4px);
+  font-size: 9vh;
   font-weight: 700;
-  // position: absolute;
-  // top: 0;
-  // left: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: rotate(90deg) translateX(100%);
+  transform-origin: right top;
+  white-space: nowrap;
 }
 
 .role {
-  @include outline-text(black, $secondary, 4px);
+  @include outline-text(silver, $secondary, 4px);
   font-size: 7vw;
   font-weight: 500;
   // position: absolute;
