@@ -10,7 +10,7 @@ onMounted(() => {
   if ($svg.length > 0) {
     const w = $svg.width() ?? 0;
     const h = $svg.height() ?? 0;
-    console.debug('BouncingIcons.onMounted', $svg, $svg.attr('viewBox'), { width: w, height: h });
+    // console.debug('BouncingIcons.onMounted', $svg, $svg.attr('viewBox'), { width: w, height: h });
 
     if ($svg.attr('viewBox') === undefined && w > 0 && h > 0) {
       const vb = { x: 0, y: 0, width: w, height: h };

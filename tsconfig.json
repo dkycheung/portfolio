@@ -2,8 +2,7 @@
   "files": [],
   "references": [
     {
-      // "path": "./tsconfig.node.json"
-      "path": "./server/tsconfig.json"
+      "path": "./tsconfig.node.json"
     },
     {
       "path": "./tsconfig.app.json"
@@ -11,6 +10,8 @@
   ],
   "compilerOptions": {
     // "types": ["jquery", "./types/baffer.d.ts"]
+    "composite": true,
+    "noEmit": true,
     "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "include": ["src/**/*", "vite.config.ts"],

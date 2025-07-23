@@ -17,7 +17,7 @@ class BouncingIcon {
     this.dx = speed * Math.cos(angle);
     this.dy = speed * Math.sin(angle);
     this.updatePosition();
-    console.debug({ x: this.x, y: this.y, speed, angle }, { position: initPos, $e });
+    // console.debug({ x: this.x, y: this.y, speed, angle }, { position: initPos, $e });
   }
 
   move(boundary?: { width: number; height: number }) {

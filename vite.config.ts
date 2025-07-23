@@ -1,15 +1,16 @@
 import { fileURLToPath, URL } from 'node:url';
-
-import { defineConfig } from 'vite';
+import { defineConfig, Plugin } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import vueDevTools from 'vite-plugin-vue-devtools';
 import inject from '@rollup/plugin-inject';
+import fs from 'fs';
+import path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
   base: '/portfolio/',
-  plugins: [vue(), vueJsx(), vueDevTools(), inject({ $: 'jquery', jQuery: 'jquery' })],
+  plugins: [vue(), vueJsx(), vueDevTools(), inject({ $: 'jquery', jQuery: 'jquery' }), shareResourcePlugin()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -32,6 +33,41 @@ export default defineConfig({
   server: {
     port: 5173,
     strictPort: true,
-    fs: { allow: ['.', '../resources'] },
+    fs: { allow: [path.resolve(__dirname), path.resolve(__dirname, '../resources')] },
   },
 });
+
+function shareResourcePlugin(): Plugin {
+  return {
+    name: 'shared-resources',
+    configureServer(server) {
+      server.middlewares.use('/resources', (req, res, next) => {
+        const url = req.originalUrl ?? req.url ?? '';
+        const relPath = url.replace(/^\/resources/, '');
+        const filePath = path.join(__dirname, '../resources', relPath);
+        try {
+          if (fs.existsSync(filePath) && !fs.lstatSync(filePath).isDirectory()) {
+            res.setHeader('Content-Type', getMimeType(filePath));
+            fs.createReadStream(filePath).pipe(res);
+          } else {
+            res.statusCode = 404;
+            res.end('Not found');
+          }
+        } catch (err) {
+          next(err);
+        }
+      });
+    },
+  };
+}
+
+function getMimeType(filePath: string): string {
+  const ext = path.extname(filePath).toLowerCase();
+  const mimeTypes: Record<string, string> = {
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.png': 'image/png',
+    // Add other MIME types as needed
+  };
+  return mimeTypes[ext] || 'application/octet-stream';
+}
