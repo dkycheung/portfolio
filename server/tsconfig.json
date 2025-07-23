@@ -1,11 +1,24 @@
 {
   "extends": "../tsconfig.json",
+
   "compilerOptions": {
-    "module": "CommonJS", // Required for Express
+    // "module": "CommonJS", // Required for Express
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+
+    "noEmit": true,
+    "tsBuildInfoFile": "./../node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "outDir": "../dist-server",
     "composite": true,
     "esModuleInterop": true,
     "types": ["node"] // Node-specific types
   },
-  "include": ["**/*.ts"]
+  "include": [
+    "vite.config.*",
+    "vitest.config.*",
+    "cypress.config.*",
+    "nightwatch.conf.*",
+    "playwright.config.*",
+    "eslint.config.*"
+  ]
 }

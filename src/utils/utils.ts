@@ -1,9 +1,20 @@
 export function getResource(resourcePath: string): string {
-  return getAbsoluteUrl(resourcePath, import.meta.env.MODE === 'production' ? '/resources/' : 'http://127.0.0.1:7777/');
+  return getAbsoluteUrl(
+    resourcePath,
+    import.meta.env.MODE === 'production' ? '/resources/' : 'http://localhost:5173/resources/',
+  );
 }
 
 export function getAbsoluteUrl(path: string, baseUrl?: string): string {
-  return URL.parse(path)?.href ?? URL.parse(path, baseUrl)?.href ?? path;
+  if (baseUrl) {
+    const baseurl = new URL(baseUrl);
+    const url = new URL(path, baseurl);
+    console.debug({ path, baseUrl, baseurl, url });
+    return url?.href;
+  }
+  const url = URL.parse(path)?.href ?? path;
+  console.debug({ path, url });
+  return url;
 }
 
 export function setCSSRootVariable(key: string, value: string): void {

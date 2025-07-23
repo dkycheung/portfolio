@@ -3,16 +3,14 @@
 import { RouterView } from 'vue-router';
 // import HelloWorld from './components/HelloWorld.vue';
 import { onMounted } from 'vue';
-import { getResource, setCSSRootVariables } from './utils/utils';
+import { setCSSRootVariables } from './utils/utils';
 import AppHeader from './components/AppHeader.vue';
 onMounted(() => {
   setCSSRootVariables(
     { key: 'main-bg-color', value: '#b1fcf9' },
-    { key: 'landscape-bg', value: `url('${getResource('/img/background-pc.jpg')}')` },
-    { key: 'portrait-bg', value: `url('${getResource('/img/background-mobile.jpg')}')` },
     {
       key: 'resource-base',
-      value: import.meta.env.MODE === 'production' ? '/resources/' : 'http://localhost:7777/resources/',
+      value: '/resources/',
     },
   );
   document.getElementById('app')?.classList.add('container-xl');
@@ -21,30 +19,36 @@ onMounted(() => {
 
 <template>
   <AppHeader />
-  <!-- <<header>
-    img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>-->
   <RouterView />
 </template>
 
 <style global lang="scss">
+html {
+  // background: #444444;
+}
+
 body {
-  background: #000000;
+  // background: #000000;
+  box-sizing: border-box;
 }
 
 #app {
   // background: #b1fcf9 url('#{$resource-base}img/background-pc.jpg') no-repeat top center !important;
-  background: #000000 url('#{$resource-base}img/background-pc.jpg') no-repeat top center !important;
-  background-size: 100% auto !important;
-  min-height: 100vh;
+  background: #000000 url('#{$resource-base}img/background-pc.jpg') no-repeat top center;
+  background-size: 100% 100%;
+  // min-height: 600px;
+  min-height: $app-height;
   position: relative;
+  border: #444444;
+  border-style: groove;
+  border-radius: 10px;
+
+  @include media-breakpoint-down(md) {
+    background-size: auto 100%;
+    background-position-x: center;
+    background-position-y: top;
+    min-height: 100dvh;
+  }
 }
 </style>
 

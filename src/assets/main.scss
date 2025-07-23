@@ -8,3 +8,8 @@
     (-$thickness) $thickness 0 $bordercolor,
     $thickness $thickness 0 $bordercolor;
 }
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

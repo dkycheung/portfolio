@@ -33,7 +33,7 @@ onMounted(() => {
 <template>
   <div ref="icon" class="bouncing-icon">
     <i>
-      <slot />
+      <slot name="svg" />
     </i>
   </div>
 </template>
@@ -49,7 +49,7 @@ onMounted(() => {
   /* border-radius: 50%; */
   /* background: coral; */
   color: coral;
-
+  filter: brightness(0.5);
   z-index: 0;
 }
 

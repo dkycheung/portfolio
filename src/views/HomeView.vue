@@ -43,13 +43,42 @@ onMounted(() => {
 
 <template>
   <main ref="main" class="boundary">
-    <BouncingIcon v-for="(icon, index) in homeviewList" :key="index"><component :is="icon" /> </BouncingIcon>
-    <!-- <TheWelcome /> -->
-    <div class="container-fluid w-100 h-100 d-flex p-0 title">
-      <div class="main-panel"><RouterLink to="/about" class="btn">About</RouterLink></div>
-      <h1 class="name">Dennis Cheung</h1>
-      <h2 class="role1">Web Developer</h2>
-      <h2 class="role2">Programmer</h2>
+    <BouncingIcon v-for="(icon, index) in homeviewList" :key="`svg-${index}`">
+      <template #svg>
+        <component :is="icon" />
+        <!-- <component v-html="icon" /> when icon is svg raw text -->
+      </template>
+    </BouncingIcon>
+    <div class="container container-xl w-100 h-100 d-flex p-0 align-items-stretch title">
+      <div class="flex-fill d-flex flex-column justify-content-between">
+        <div class="main-panel flex-fill container-fluid align-content-center">
+          <div class="row justify-content-center p-2">
+            <RouterLink to="/about" class="btn btn-primary">About</RouterLink>
+          </div>
+          <div class="row justify-content-center p-2">
+            <RouterLink to="/case-study" class="btn btn-success">Case Study</RouterLink>
+          </div>
+        </div>
+        <div class="flex-grow-0">
+          <h2 class="role1">Web Developer</h2>
+          <h2 class="role2">Programmer</h2>
+
+          <!-- <h2 class="role1">
+            <svg xmlns="http://www.w3.org/2000/svg">
+              <text x="0%" y="100%">Web Developer</text>
+            </svg>
+          </h2>-->
+          <!-- <h2 class="role2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="9vh" view-box="0 0 100 20">
+              <text dy="1.0em">Programmer</text>
+            </svg>
+          </h2> -->
+        </div>
+      </div>
+      <div class="h-100 flex-grow-0">
+        <h1 class="name">Dennis Cheung</h1>
+      </div>
+      <div class="clearfix"></div>
     </div>
   </main>
 </template>
@@ -57,9 +86,12 @@ onMounted(() => {
 <style lang="scss">
 .boundary {
   width: 100%;
-  min-height: 600px;
   position: relative;
   overflow: hidden;
+
+  @include media-breakpoint-up(md) {
+    min-height: 600px;
+  }
 }
 
 .title {
@@ -70,27 +102,58 @@ onMounted(() => {
 
 .name {
   @include outline-text(silver, $secondary, 4px);
+  width: 9vh;
+  height: $app-height;
+  // height: 600px;
   font-size: 9vh;
   font-weight: 700;
-  position: absolute;
-  top: 0;
-  right: 0;
   transform: rotate(90deg) translateX(100%);
   transform-origin: right top;
   white-space: nowrap;
+
+  @include media-breakpoint-down(md) {
+    height: 90dvh;
+  }
+}
+
+.btn {
+  width: 150px !important;
 }
 
 .role {
   @include outline-text(silver, $secondary, 4px);
-  font-size: 7vw;
+  font-size: 5vw;
   font-weight: 500;
   // position: absolute;
+
+  & svg {
+    // overflow: visible;
+    width: 100%;
+    height: auto;
+
+    & text {
+      fill: silver;
+      font-size: 5vw;
+      font-weight: bold;
+      stroke: $secondary;
+      stroke-width: 4px;
+      text-anchor: start;
+      font-family: 'verdana', sans-serif;
+      // dominant-baseline: mathematical;
+    }
+  }
+  @include media-breakpoint-down(md) {
+    font-size: 10vw;
+    @include outline-text(silver, $secondary, 2px);
+  }
 }
 
 .role1 {
   @extend .role;
+  width: 100%;
 }
 .role2 {
   @extend .role;
+  width: 100%;
 }
 </style>

@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 // 1. Override Bootstrap color variables BEFORE importing Bootstrap
 // $primary: #4f8cff;
 // $secondary: #ffb347;
@@ -10,3 +12,5 @@
 
 // 2. Import Bootstrap's SCSS
 @import 'bootstrap/scss/bootstrap.scss';
+
+$app-height: calc(map.get($grid-breakpoints, xl) * 9 / 16);

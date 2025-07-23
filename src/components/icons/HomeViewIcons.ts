@@ -20,7 +20,6 @@ export const homeviewList = [
   IconHtml5,
   IconCss,
   IconDotNet,
-  IconHtml5,
   IconJavascript,
   IconJquery,
   IconPhp,

@@ -144,10 +144,8 @@ export default class BouncingIcons {
     if (now - this.lastUpdate >= this.interval) {
       this.lastUpdate = now;
       const box = this.boundary.getBoundingClientRect();
-      this.icons.forEach((icon, index) => {
+      this.icons.forEach((icon) => {
         icon.move(box);
-        // console.log({ index, boxW, boxH, x: icon.x, y: icon.y, dx: icon.dx, dy: icon.dy });
-        // icon.debug(index);
       });
     }
 

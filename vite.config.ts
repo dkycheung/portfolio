@@ -19,13 +19,13 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         silenceDeprecations: ['import', 'mixed-decls', 'color-functions', 'global-builtin'],
-        // additionalData: `@import '@/assets/main.scss';
-        // $resource-base: '/resources/';
-        // `,
-        additionalData: `
-        @import '@/assets/main.scss';
-        $resource-base: '${process.env.NODE_ENV === 'production' ? '/resources/' : '/resources/'}';
+        additionalData: `@import '@/assets/main.scss';
+        $resource-base: '/resources/';
         `,
+        // additionalData: `
+        // @import '@/assets/main.scss';
+        // $resource-base: '${process.env.NODE_ENV === 'production' ? '/resources/' : '/resources/'}';
+        // `,
       },
     },
   },
@@ -33,10 +33,5 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
     fs: { allow: ['.', '../resources'] },
-    // proxy: {
-    //   '/resources': {
-    //     target: 'http://127.0.0.1:7777',
-    //   },
-    // },
   },
 });
