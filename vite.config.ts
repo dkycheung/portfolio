@@ -45,6 +45,7 @@ function shareResourcePlugin(): Plugin {
         const url = req.originalUrl ?? req.url ?? '';
         const relPath = url.replace(/^\/resources/, '');
         const filePath = path.join(__dirname, '../resources', relPath);
+        console.debug({ request: url, redirected: filePath });
         try {
           if (fs.existsSync(filePath) && !fs.lstatSync(filePath).isDirectory()) {
             res.setHeader('Content-Type', getMimeType(filePath));
@@ -67,6 +68,9 @@ function getMimeType(filePath: string): string {
     '.jpg': 'image/jpeg',
     '.jpeg': 'image/jpeg',
     '.png': 'image/png',
+    '.html': 'text/html',
+    '.htm': 'text/html',
+    '.svg': 'image/svg+xml',
     // Add other MIME types as needed
   };
   return mimeTypes[ext] || 'application/octet-stream';
