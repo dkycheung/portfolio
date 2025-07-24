@@ -1,3 +1,4 @@
+/// map Shared Resource path
 export function getResource(resourcePath: string): string {
   return getAbsoluteUrl(
     resourcePath,
@@ -9,7 +10,7 @@ export function getAbsoluteUrl(path: string, baseUrl?: string): string {
   if (baseUrl) {
     const baseurl = new URL(baseUrl);
     const url = new URL(path, baseurl);
-    console.debug({ path, baseUrl, baseurl, url });
+    console.debug({ path, baseUrl, baseurl, url: url?.href });
     return url?.href;
   }
   const url = URL.parse(path)?.href ?? path;

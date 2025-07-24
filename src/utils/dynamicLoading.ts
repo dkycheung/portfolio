@@ -1,24 +1,33 @@
-import type { CaseViewConfig } from '../types/caseView';
+import type { CaseListViewConfig, CaseViewConfig } from '../types/caseView';
 import { h, defineAsyncComponent, type AsyncComponentLoader } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
+
+const caseList: CaseListViewConfig[] = [];
+export function getCaseList(): ReadonlyArray<CaseListViewConfig> {
+  return caseList;
+}
 
 export async function createDynamicRoutes(
   routeConfigs: CaseViewConfig[],
   path: string,
   template: string,
 ): Promise<RouteRecordRaw[]> {
-  return routeConfigs.map((route, index) => ({
-    path: `${path}/${index}`,
-    name: route.title,
-    component: createDynamicComponent(template),
-    props: { contentHTML: route.contentUrl },
-  }));
+  return routeConfigs.map((route, index) => {
+    const finalPath = `${path}/${index}`;
+    caseList.push({ path: finalPath, ...route });
+    return {
+      path: `${path}/${index}`,
+      name: route.title,
+      component: createDynamicComponent(template),
+      props: { config: route },
+    };
+  });
 }
 
 function createDynamicComponent(templateName: string): AsyncComponentLoader {
   return defineAsyncComponent({
-    loader: () => import(`../components/${templateName}.vue`),
-    loadingComponent: () => h('div', 'Loading template'),
+    loader: () => import(/* @vite-ignore */ `${templateName}.vue`),
+    loadingComponent: () => h('div', { class: 'spinner-border text-warning' }),
     errorComponent: () => h('div', 'Template load failed'),
     delay: 200,
     timeout: 300,
@@ -28,7 +37,9 @@ function createDynamicComponent(templateName: string): AsyncComponentLoader {
 let jobExpJson: CaseViewConfig[] | null;
 export async function getJobExp(): Promise<CaseViewConfig[]> {
   try {
-    return jobExpJson ?? (jobExpJson = (await (await fetch('/resourses/job-exp.json')).json()) as CaseViewConfig[]);
+    return (
+      jobExpJson ?? (jobExpJson = (await (await fetch('/resources/content/job-exp.json')).json()) as CaseViewConfig[])
+    );
   } catch (error) {
     console.error(error);
     return [];

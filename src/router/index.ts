@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
-import { createDynamicRoutes } from '@/utils/dynamicLoading';
+import { createDynamicRoutes, getCaseList } from '@/utils/dynamicLoading';
 import { getJobExp } from '@/utils/dynamicLoading';
 
 const router = createRouter({
@@ -19,14 +19,17 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
+    {
+      path: '/job-exp',
+      name: 'Job Experence',
+      component: () => import('../views/CaseListView.vue'),
+      props: { title: 'Job Experences', caseList: getCaseList() },
+    },
   ],
 });
 
-getJobExp().then((json) => {
-  createDynamicRoutes(json, '/job-exp', 'CaseView').then((routes) => {
-    routes.forEach((route) => router.addRoute(route));
-  });
-});
-// .catch((err) => {});
+(await createDynamicRoutes(await getJobExp(), '/job-exp', '../views/CaseView')).forEach((route) =>
+  router.addRoute(route),
+);
 
 export default router;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BouncingIcon from '@/components/BouncingIcon.vue';
-import BouncingIcons from '@/utils/bouncingIcon.ts';
+import BouncingIcons from '@/utils/bouncingIcon';
 import baffle from 'baffle';
 import { onMounted, ref } from 'vue';
 import { homeviewList } from '@/components/icons/HomeViewIcons';
@@ -9,9 +9,11 @@ const main = ref<HTMLElement | null>(null);
 
 const chars = 'asdfgj;khlqwertyuiopzxcvbnm';
 
+import('@/components/CaseListItem.vue').then(console.log);
+
 onMounted(() => {
   const b = new BouncingIcons($('.bouncing-icon'), $('.boundary'));
-  console.debug({ b });
+  // console.debug({ b });
 
   baffle($('.name').get(0) as HTMLElement, {
     // characters: '█▓▒░▒▓█',
@@ -56,7 +58,7 @@ onMounted(() => {
             <RouterLink to="/about" class="btn btn-primary">About</RouterLink>
           </div>
           <div class="row justify-content-center p-2">
-            <RouterLink to="/case-study" class="btn btn-success">Case Study</RouterLink>
+            <RouterLink to="/job-exp" class="btn btn-success">Past Cases</RouterLink>
           </div>
         </div>
         <div class="flex-grow-0">
