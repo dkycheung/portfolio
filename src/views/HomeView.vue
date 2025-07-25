@@ -6,7 +6,6 @@ import { onMounted, ref } from 'vue';
 import { homeviewList } from '@/components/icons/HomeViewIcons';
 
 const main = ref<HTMLElement | null>(null);
-const myName = ref<HTMLElement | null>(null);
 
 const chars = 'asdfgjkhlqwertyuiopzxcvbnm';
 
@@ -15,7 +14,7 @@ import('@/components/CaseListItem.vue').then(console.log);
 onMounted(() => {
   const b = new BouncingIcons($('.bouncing-icon'), $('.boundary'));
   // console.debug({ b });
-  console.debug({ value: myName.value, children: myName.value.children });
+
   const baffleOpt: BaffleOptions = { characters: chars, speed: 100 };
   baffle('#myNameTspan', baffleOpt).start().reveal(2000);
   baffle('#myRole1Tspan', baffleOpt).start().reveal(3000);
@@ -26,74 +25,133 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bottom-panel">
-    <svg ref="myRoles" id="myRolesSvg" viewBox="52 0 140 50" xmlns="http://www.w3.org/2000/svg">
-      <linearGradient id="linearGradient1" inkscape:collect="always" gradientUnits="userSpaceOnUse">
-        <stop style="stop-color: #708b3d; stop-opacity: 1" offset="0" id="stop1" />
-        <stop style="stop-color: #ac3107; stop-opacity: 1" offset="1" id="stop2" />
-      </linearGradient>
+  <svg style="display: none">
+    <defs>
       <filter id="glow-effect" x="-5%" y="-5%" width="110%" height="110%">
         <feGaussianBlur stdDeviation="1" result="blur" />
         <feComposite in="SourceGraphic" in2="blur" operator="over" />
       </filter>
-      <text
-        xml:space="preserve"
-        id="myRolesText"
-        width="100%"
-        height="100%"
-        x="60"
-        y="1em"
-        style="font-size: 16px"
-        filter="url(#glow-effect)"
-      >
-        <tspan id="myRole1Tspan">Programmer</tspan>
-      </text>
-      <text
-        xml:space="preserve"
-        id="myRolesText"
-        x="60"
-        y="1em"
-        dy="1.5em"
-        style="font-size: 16px"
-        filter="url(#glow-effect)"
-      >
-        <tspan id="myRole2Tspan">Web Developer</tspan>
-      </text>
+    </defs>
+  </svg>
+  <div class="bottom-panel">
+    <svg viewBox="0 0 37.041665 8.995833" id="myRolesSvg" xmlns="http://www.w3.org/2000/svg">
+      <defs id="defs1">
+        <linearGradient id="linearGradient1">
+          <stop style="stop-color: #0700f3; stop-opacity: 1" offset="0" id="stop1" />
+          <stop style="stop-color: #ecff00; stop-opacity: 1" offset="0.52556038" id="stop13" />
+          <stop style="stop-color: #ac3107; stop-opacity: 1" offset="1" id="stop2" />
+        </linearGradient>
+        <linearGradient
+          xlink:href="#linearGradient1"
+          id="linearGradient2"
+          x1="35.677586"
+          y1="52.132885"
+          x2="49.367592"
+          y2="52.211395"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="matrix(2.406343,0,0,2.4063429,-151.09941,-47.266484)"
+        />
+      </defs>
+      <g id="layer1" style="display: inline" transform="translate(0.24941479,-0.14468504)">
+        <text
+          xml:space="preserve"
+          style="
+            font-style: normal;
+            font-variant: normal;
+            font-weight: bold;
+            font-stretch: normal;
+            font-size: 3.87786px;
+            font-family: Georgia;
+            -inkscape-font-specification: 'Georgia, Bold';
+            font-variant-ligatures: normal;
+            font-variant-caps: normal;
+            font-variant-numeric: normal;
+            font-variant-east-asian: normal;
+            text-align: start;
+            writing-mode: lr-tb;
+            direction: ltr;
+            text-anchor: start;
+            white-space: pre;
+            inline-size: 33.3023;
+            display: inline;
+            fill: url(#linearGradient2);
+            fill-opacity: 1;
+            stroke: #ffffff;
+            stroke-width: 0.079375;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: none;
+            stroke-opacity: 1;
+          "
+          x="-65.361832"
+          y="79.502625"
+          id="myRolesText"
+          transform="matrix(1.1932636,0,0,0.99872371,78.111334,-76.257227)"
+        >
+          <tspan x="-65.361832" y="79.502625" id="tspan1">Programmer</tspan>
+          <tspan x="-65.361832" y="84.349949" id="tspan2">Web Developer</tspan>
+        </text>
+      </g>
     </svg>
   </div>
   <div class="right-panel">
-    <svg ref="myName" id="myNameSvg" viewBox="0 0 20 120" xmlns="http://www.w3.org/2000/svg">
-      <linearGradient
-        id="linearGradient1"
-        inkscape:collect="always"
-        gradientUnits="userSpaceOnUse"
-        x1="35.789677"
-        y1="50.729588"
-        x2="89.103249"
-        y2="50.729588"
-        gradientTransform="matrix(2.406343,0,0,2.4063429,-86.228602,-131.03148)"
-      >
-        <stop style="stop-color: #708b3d; stop-opacity: 1" offset="0" id="stop1" />
-        <stop style="stop-color: #ac3107; stop-opacity: 1" offset="1" id="stop2" />
-      </linearGradient>
-      <filter id="glow-effect" x="-5%" y="-5%" width="110%" height="110%">
-        <feGaussianBlur stdDeviation="1" result="blur" />
-        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-      </filter>
-      <text
-        xml:space="preserve"
-        id="myNameText"
-        transform="matrix(0,1,-1,0,0,0)"
-        textLength="110"
-        lengthAdjust="spacingAndGlyphs"
-        width="100%"
-        height="100%"
-        x="0"
-        y="-5"
-        filter="url(#glow-effect)"
-      >
-        <tspan id="myNameTspan">Dennis Cheung</tspan>
-      </text>
+    <svg viewBox="0 0 4.19377 33.047497" id="myNameSvg" xmlns="http://www.w3.org/2000/svg">
+      <defs id="defs1">
+        <linearGradient id="linearGradient1">
+          <stop style="stop-color: #0700f3; stop-opacity: 1" offset="0" id="stop1" />
+          <stop style="stop-color: #ecff00; stop-opacity: 1" offset="0.52556038" id="stop13" />
+          <stop style="stop-color: #ac3107; stop-opacity: 1" offset="1" id="stop2" />
+        </linearGradient>
+        <linearGradient
+          xlink:href="#linearGradient1"
+          id="linearGradient2"
+          x1="35.677586"
+          y1="52.132885"
+          x2="49.367592"
+          y2="52.211395"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="matrix(2.406343,0,0,2.4063429,-151.09941,-47.266484)"
+        />
+      </defs>
+      <g id="layer1" transform="translate(-0.54894798,-0.67416788)">
+        <text
+          xml:space="preserve"
+          style="
+            font-style: normal;
+            font-variant: normal;
+            font-weight: bold;
+            font-stretch: normal;
+            font-size: 4.23333px;
+            font-family: Georgia;
+            -inkscape-font-specification: 'Georgia, Bold';
+            font-variant-ligatures: normal;
+            font-variant-caps: normal;
+            font-variant-numeric: normal;
+            font-variant-east-asian: normal;
+            text-align: start;
+            writing-mode: lr-tb;
+            direction: ltr;
+            text-anchor: start;
+            white-space: pre;
+            inline-size: 33.3023;
+            display: inline;
+            fill: url(#linearGradient2);
+            fill-opacity: 1;
+            stroke: #ffffff;
+            stroke-width: 0.079375;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: none;
+            stroke-opacity: 1;
+          "
+          x="-65.361832"
+          y="79.502625"
+          id="myNameText"
+          transform="matrix(0,1.0007728,-0.9992278,0,80.946932,65.987095)"
+        >
+          <tspan x="-65.361832" y="79.502625" id="myNameTspan">Dennis Cheung</tspan>
+        </text>
+      </g>
     </svg>
   </div>
   <main ref="main" class="boundary">
@@ -111,27 +169,6 @@ onMounted(() => {
         <RouterLink to="/job-exp" class="btn btn-success">Past Cases</RouterLink>
       </div>
     </div>
-
-    <!-- <div class="container container-xl w-100 h-100 d-flex p-0 align-items-stretch title">
-      <div class="flex-fill d-flex flex-column justify-content-between">
-        <div class="main-panel flex-fill container-fluid align-content-center">
-          <div class="row justify-content-center p-2">
-            <RouterLink to="/about" class="btn btn-primary">About</RouterLink>
-          </div>
-          <div class="row justify-content-center p-2">
-            <RouterLink to="/job-exp" class="btn btn-success">Past Cases</RouterLink>
-          </div>
-        </div>
-        <div class="flex-grow-0">
-          <h2 class="role1">Web Developer</h2>
-          <h2 class="role2">Programmer</h2>
-        </div>
-      </div>
-      <div class="h-100 flex-grow-0">
-        <h1 class="name">Dennis Cheung</h1>
-      </div>
-      <div class="clearfix"></div>
-    </div> -->
   </main>
 </template>
 
@@ -142,17 +179,9 @@ onMounted(() => {
   position: relative;
   overflow: hidden;
 
-  @include media-breakpoint-down(md) {
-    // height: 100vh;
-    // max-height: 100%;
-    // height: calc(100vh - 30);
+  @include media-mobile {
+    height: $mobile-height-strict;
   }
-}
-
-.title {
-  position: relative;
-  // z-index: 10;
-  // font-family: 'verdana', sans-serif;
 }
 
 .main-panel {
@@ -161,6 +190,11 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   min-height: $app-height;
+
+  @include media-mobile {
+    min-height: unset;
+    height: $mobile-height-strict;
+  }
 }
 
 .right-panel {
@@ -170,27 +204,14 @@ onMounted(() => {
   top: 0;
   right: 0;
   height: $app-height;
+  padding: 15px;
 
-  .name {
-    @include outline-text(silver, $secondary, 4px);
-    // width: 9vh;
-    width: $app-height;
-    // height: $app-height;
-    // height: 600px;
-    font-size: 9vh;
-    font-weight: 700;
-    transform: rotate(90deg) translateX(100%);
-    transform-origin: right top;
-    white-space: nowrap;
-
-    @include media-breakpoint-down(md) {
-      height: 90dvh;
-    }
+  @include media-mobile {
+    height: $mobile-height-strict;
   }
 
   #myNameSvg {
     max-height: 100%;
-    height: auto;
     width: 100%;
     font-family: Georgia, 'Times New Roman', Times, serif;
 
@@ -200,12 +221,17 @@ onMounted(() => {
       stroke-linecap: round;
       stroke-linejoin: round;
       stroke-opacity: 1;
-      fill: url('#linearGradient1');
+      fill: url('#linearGradient2');
       fill-opacity: 1;
       font-weight: 800;
+
+      tspan {
+        // filter: url('#glow-effect');
+      }
     }
   }
 }
+
 .bottom-panel {
   --panel-height: 160px;
 
@@ -217,6 +243,13 @@ onMounted(() => {
 
   width: 100%;
   height: var(--panel-height);
+
+  padding: 15px;
+
+  @include media-mobile {
+    --panel-height: 100px;
+    top: calc($mobile-height-strict - var(--panel-height));
+  }
 
   #myRolesSvg {
     transform-origin: 0 0;
@@ -233,7 +266,7 @@ onMounted(() => {
       stroke-linejoin: round;
       stroke-opacity: 1;
       // fill: white;
-      fill: url('#linearGradient1');
+      fill: url('#linearGradient4');
       fill-opacity: 1;
       font-weight: 800;
     }
@@ -242,42 +275,5 @@ onMounted(() => {
 
 .btn {
   width: 150px !important;
-}
-
-.role {
-  @include outline-text(silver, $secondary, 4px);
-  font-size: 5vw;
-  font-weight: 500;
-  // position: absolute;
-
-  & svg {
-    // overflow: visible;
-    width: 100%;
-    height: auto;
-
-    & text {
-      fill: silver;
-      font-size: 5vw;
-      font-weight: bold;
-      stroke: $secondary;
-      stroke-width: 4px;
-      text-anchor: start;
-      font-family: 'verdana', sans-serif;
-      // dominant-baseline: mathematical;
-    }
-  }
-  @include media-breakpoint-down(md) {
-    font-size: 10vw;
-    @include outline-text(silver, $secondary, 2px);
-  }
-}
-
-.role1 {
-  @extend .role;
-  width: 100%;
-}
-.role2 {
-  @extend .role;
-  width: 100%;
 }
 </style>

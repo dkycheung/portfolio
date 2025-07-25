@@ -1,3 +1,4 @@
+@use 'sass:map';
 @import 'bootstrap-custom-scheme.scss';
 
 @mixin outline-text($textcolor: white, $bordercolor: black, $thickness: 2px) {
@@ -9,7 +10,23 @@
     $thickness $thickness 0 $bordercolor;
 }
 
+@mixin media-mobile {
+  @include media-breakpoint-down(md) {
+    @content;
+  }
+}
+
+@mixin media-desktop {
+  @include media-breakpoint-up(md) {
+    @content;
+  }
+}
+
 .disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+$app-height: calc(map.get($grid-breakpoints, xl) * 9 / 16);
+$mobile-height-strict: min($app-height, 100dvh);
+$mobile-height-loose: max(100dvh, 100%);
