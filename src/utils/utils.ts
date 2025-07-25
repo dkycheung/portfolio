@@ -1,5 +1,6 @@
 /// map Shared Resource path
-export function getResource(resourcePath: string): string {
+export function getResource(resourcePath: string | undefined): string {
+  if (resourcePath == undefined) return '';
   return getAbsoluteUrl(
     resourcePath,
     import.meta.env.MODE === 'production' ? '/resources/' : 'http://localhost:5173/resources/',
