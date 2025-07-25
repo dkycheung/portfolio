@@ -41,7 +41,7 @@ body {
   border-style: groove;
   border-radius: 10px;
 
-  @include media-breakpoint-down(md) {
+  @include media-mobile {
     background-size: auto 100%;
     background-position-x: center;
     background-position-y: top;

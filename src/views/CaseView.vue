@@ -62,7 +62,7 @@ function buildFigureFromImage(d: Document): void {
   justify-content: center;
   text-shadow: 4px 4px $gray-700;
 
-  @include media-breakpoint-down(md) {
+  @include media-mobile {
     min-height: 200px;
     max-height: 300px;
     height: fit-content;
@@ -72,7 +72,7 @@ function buildFigureFromImage(d: Document): void {
     font-weight: bolder;
     font-size: 5em;
     color: $light;
-    @include media-breakpoint-down(md) {
+    @include media-mobile {
       font-size: 2.5em;
     }
   }
@@ -83,7 +83,7 @@ function buildFigureFromImage(d: Document): void {
     bottom: 20px;
     right: 20px;
     text-align: end;
-    @include media-breakpoint-down(md) {
+    @include media-mobile {
       bottom: 10px;
       right: 10px;
     }
@@ -98,7 +98,9 @@ function buildFigureFromImage(d: Document): void {
   margin-bottom: 10px;
 
   div.figure {
-    @include media-breakpoint-down(md) {
+    clear: both;
+
+    @include media-mobile {
       justify-self: center;
       display: block;
     }
@@ -126,8 +128,9 @@ function buildFigureFromImage(d: Document): void {
         height: auto;
         max-height: 200px;
         object-fit: contain;
-        @include media-breakpoint-down(md) {
-          // height: 100%;
+
+        @include media-mobile {
+          height: 150px;
           width: auto;
         }
       }

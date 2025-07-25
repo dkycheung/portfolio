@@ -24,7 +24,7 @@ console.debug({ title: props.title, list: props.caseList, routes: router.getRout
 
 <style lang="scss">
 .list-box {
-  @include media-breakpoint-up(lg) {
+  @include media-desktop {
     width: 90%;
     margin: 0 auto;
   }

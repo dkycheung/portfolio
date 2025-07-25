@@ -11,13 +11,13 @@
 }
 
 @mixin media-mobile {
-  @include media-breakpoint-down(md) {
+  @include media-mobile {
     @content;
   }
 }
 
 @mixin media-desktop {
-  @include media-breakpoint-up(md) {
+  @include media-desktop {
     @content;
   }
 }
