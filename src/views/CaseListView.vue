@@ -9,9 +9,9 @@ const props = defineProps<{
 console.debug({ title: props.title, list: props.caseList, routes: router.getRoutes() });
 </script>
 
-<template>
+<template style="">
+  <h2 class="title">{{ title }}</h2>
   <div class="list-box row row-cols-1 row-cols-lg-2">
-    <h2 class="title">{{ title }}</h2>
     <CaseListItem
       v-for="(item, index) in caseList"
       :key="index"
@@ -27,6 +27,7 @@ console.debug({ title: props.title, list: props.caseList, routes: router.getRout
   @include media-desktop {
     width: 90%;
     margin: 0 auto;
+    justify-self: center;
   }
 }
 
@@ -35,6 +36,7 @@ console.debug({ title: props.title, list: props.caseList, routes: router.getRout
   flex: 0 0 auto;
   width: 100%;
   text-align: center;
+  padding-top: 0.5em;
   margin-top: 0.5em;
 }
 </style>

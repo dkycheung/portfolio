@@ -92,10 +92,14 @@ function buildFigureFromImage(d: Document): void {
 
 .inner-html {
   background-color: antiquewhite;
-  padding: 40px;
+  padding: 40px 100px;
   height: 100%;
   border-radius: 0 0 10px 10px;
   margin-bottom: 10px;
+
+  @include media-mobile {
+    padding: 40px;
+  }
 
   div.figure {
     clear: both;
@@ -132,8 +136,19 @@ function buildFigureFromImage(d: Document): void {
         @include media-mobile {
           height: 150px;
           width: auto;
+          max-width: 200px;
         }
       }
+    }
+
+    &.float-start,
+    &.float-sm-start,
+    &.float-md-start,
+    &.float-lg-start,
+    &.float-xl-start,
+    &.float-xxl-start {
+      position: relative;
+      left: -1em;
     }
   }
   h1,

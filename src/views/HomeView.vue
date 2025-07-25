@@ -4,6 +4,7 @@ import BouncingIcons from '@/utils/bouncingIcon';
 import baffle, { BaffleOptions } from 'baffle';
 import { onMounted, ref } from 'vue';
 import { homeviewList } from '@/components/icons/HomeViewIcons';
+import { getResource } from '@/utils/utils';
 
 const main = ref<HTMLElement | null>(null);
 
@@ -22,6 +23,12 @@ onMounted(() => {
 
   b.start();
 });
+
+function linkTo(event: Event, url: string) {
+  console.debug({ event, url });
+  event.preventDefault();
+  window.open(url, '_blank');
+}
 </script>
 
 <template>
@@ -168,6 +175,26 @@ onMounted(() => {
       <div class="row justify-content-center p-2">
         <RouterLink to="/job-exp" class="btn btn-success">Past Cases</RouterLink>
       </div>
+      <div class="links row justify-content-center p-2">
+        <img
+          alt="Contact Me"
+          class="logo"
+          :src="`${getResource('./svg/mail.svg')}`"
+          @click="linkTo($event, 'mailto:dkycheung@gmail.com')"
+        />
+        <img
+          alt="LinkedIn"
+          class="logo"
+          :src="`${getResource('./svg/LinkedIn.svg')}`"
+          @click="linkTo($event, 'http://www.linkedin.com/in/kwok-yiu-dennis-cheung-308181364')"
+        />
+        <img
+          alt="GitHub"
+          class="logo"
+          :src="`${getResource('./svg/GitHub.svg')}`"
+          @click="linkTo($event, 'https://github.com/dkycheung')"
+        />
+      </div>
     </div>
   </main>
 </template>
@@ -180,7 +207,7 @@ onMounted(() => {
   overflow: hidden;
 
   @include media-mobile {
-    height: $mobile-height-strict;
+    height: calc($mobile-height-strict - 30px);
   }
 }
 
@@ -194,6 +221,24 @@ onMounted(() => {
   @include media-mobile {
     min-height: unset;
     height: $mobile-height-strict;
+  }
+
+  .links {
+    height: 30px;
+    box-sizing: content-box;
+    padding: 5px;
+
+    .logo {
+      display: block;
+      margin: 0 2.5px;
+      box-sizing: content-box;
+      padding: 5px;
+      width: auto;
+      height: 100%;
+      fill: #0bd8acff;
+      background-color: rgba($dark, 0.5);
+      border-radius: 5px;
+    }
   }
 }
 

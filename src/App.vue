@@ -22,11 +22,11 @@ onMounted(() => {
 
 <style global lang="scss">
 html {
-  // background: #444444;
+  background: #444444;
 }
 
 body {
-  // background: #000000;
+  background: #444444;
   box-sizing: border-box;
 }
 

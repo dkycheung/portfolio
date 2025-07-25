@@ -17,14 +17,12 @@ watch(
 );
 
 function back(event: Event) {
-  // window.history.back();
   event.preventDefault();
   router.back();
 }
-
-function contactMe(event: Event) {
+function forward(event: Event) {
   event.preventDefault();
-  window.open('mailto:dkycheung@gmail.com', '_blank');
+  router.forward();
 }
 </script>
 
@@ -35,10 +33,17 @@ function contactMe(event: Event) {
         alt="Back"
         class="logo"
         :src="`${getResource('./svg/back-arrow.svg')}`"
-        :class="{ disabled: !canBack, 'pe-auto': canBack }"
+        :class="{ disabled: !canBack, 'pe-auto': canBack, 'pe-none': !canBack }"
         @click="back"
       />
-      <img alt="Contact Me" class="logo" :src="`${getResource('./svg/mail.svg')}`" @click="contactMe" />
+      <img
+        alt="Forward"
+        class="logo"
+        style="transform: rotate(180deg)"
+        :src="`${getResource('./svg/back-arrow.svg')}`"
+        :class="{}"
+        @click="forward"
+      />
     </div>
   </header>
 </template>
@@ -50,7 +55,7 @@ header {
 }
 
 .header {
-  position: absolute;
+  // position: absolute;
   height: 30px;
   width: fit-content;
   margin-top: 0;
