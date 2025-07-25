@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import BouncingIcon from '@/components/BouncingIcon.vue';
 import BouncingIcons from '@/utils/bouncingIcon';
-import baffle, { BaffleOptions } from 'baffle';
+import baffle, { type BaffleOptions } from 'baffle';
 import { onMounted, ref } from 'vue';
 import { homeviewList } from '@/components/icons/HomeViewIcons';
 import { getResource } from '@/utils/utils';
@@ -269,10 +269,6 @@ function linkTo(event: Event, url: string) {
       fill: url('#linearGradient2');
       fill-opacity: 1;
       font-weight: 800;
-
-      tspan {
-        // filter: url('#glow-effect');
-      }
     }
   }
 }

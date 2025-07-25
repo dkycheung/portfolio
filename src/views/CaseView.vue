@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { CaseViewConfig } from '@/types/caseView';
+import { type CaseViewConfig } from '@/types/caseView';
 import { getResource } from '@/utils/utils';
 // import DOMPurify from 'dompurify';
 const props = defineProps<{ config: CaseViewConfig }>();

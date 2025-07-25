@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { CaseListViewConfig } from '@/types/caseView';
+import { type CaseListViewConfig } from '@/types/caseView';
 import { getResource } from '@/utils/utils';
 
-const props = defineProps<{
+defineProps<{
   caseConfig: CaseListViewConfig;
 }>();
-console.debug({ props });
 
 function imgError(event: Event) {
   event.preventDefault();

@@ -9,12 +9,12 @@ const route = useRoute();
 const canBack = computed(() => route.path !== '/');
 // const canBack = computed(() => window.history.length > 1);
 
-watch(
-  () => route.path,
-  (value, oldValue) => {
-    console.debug({ value, oldValue, route: route.path, router });
-  },
-);
+// watch(
+//   () => route.path,
+//   (value, oldValue) => {
+//     console.debug({ value, oldValue, route: route.path, router });
+//   },
+// );
 
 function back(event: Event) {
   event.preventDefault();

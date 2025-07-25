@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { CaseListViewConfig } from '@/types/caseView';
+import { type CaseListViewConfig } from '@/types/caseView';
 import CaseListItem from '@/components/CaseListItem.vue';
-import router from '@/router/index';
-const props = defineProps<{
+defineProps<{
   title: string;
   caseList: CaseListViewConfig[];
 }>();
-console.debug({ title: props.title, list: props.caseList, routes: router.getRoutes() });
 </script>
 
 <template style="">
