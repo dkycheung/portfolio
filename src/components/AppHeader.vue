@@ -46,13 +46,14 @@ function contactMe(event: Event) {
 <style scoped lang="scss">
 header {
   width: 100%;
-  height: 30px;
   justify-items: center;
 }
 
 .header {
-  height: 100%;
+  position: absolute;
+  height: 30px;
   width: fit-content;
+  margin-top: 0;
   padding: 3px 5px 5px 5px;
   box-sizing: content-box;
   background-color: $dark;
