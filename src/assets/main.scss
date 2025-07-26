@@ -1,3 +1,4 @@
+@use 'sass:math';
 @use 'sass:map';
 @import 'bootstrap-custom-scheme.scss';
 
@@ -11,13 +12,13 @@
 }
 
 @mixin media-mobile {
-  @include media-mobile {
+  @include media-breakpoint-down(md) {
     @content;
   }
 }
 
 @mixin media-desktop {
-  @include media-desktop {
+  @include media-breakpoint-up(md) {
     @content;
   }
 }

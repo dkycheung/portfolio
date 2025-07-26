@@ -14,11 +14,10 @@
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "declarationDir": "./types",
+    "outDir": "./out",
 
     "module": "ESNext",
-    // "module": "nodenext",
     "moduleResolution": "Bundler",
-    // "moduleResolution": "nodenext",
     "types": ["node"],
     "target": "esnext"
   }

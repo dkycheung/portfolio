@@ -1,5 +1,6 @@
 import { fileURLToPath, URL } from 'node:url';
 import { defineConfig, Plugin } from 'vite';
+import { visualizer } from 'rollup-plugin-visualizer';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import vueDevTools from 'vite-plugin-vue-devtools';
@@ -10,7 +11,14 @@ import path from 'path';
 // https://vite.dev/config/
 export default defineConfig({
   base: '/portfolio/',
-  plugins: [vue(), vueJsx(), vueDevTools(), inject({ $: 'jquery', jQuery: 'jquery' }), shareResourcePlugin()],
+  plugins: [
+    vue(),
+    vueJsx(),
+    vueDevTools(),
+    inject({ $: 'jquery', jQuery: 'jquery' }),
+    shareResourcePlugin(),
+    visualizer({ open: true }),
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -20,7 +28,8 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         silenceDeprecations: ['import', 'mixed-decls', 'color-functions', 'global-builtin'],
-        additionalData: `@import '@/assets/main.scss';
+        additionalData: `
+        @import '@/assets/main.scss';
         $resource-base: '/resources/';
         `,
         // additionalData: `
@@ -29,27 +38,36 @@ export default defineConfig({
         // `,
       },
     },
+    devSourcemap: false,
   },
   server: {
     port: 5173,
     strictPort: true,
     fs: { allow: [path.resolve(__dirname), path.resolve(__dirname, '../resources')] },
     watch: {
-      usePolling: false,
+      usePolling: true,
+      interval: 1000,
+      followSymlinks: false,
     },
   },
-  // build: {
-  //   chunkSizeWarningLimit: 1500, // in kB
-  //   rollupOptions: {
-  //     output: {
-  //       manualChunks(id) {
-  //         if (id.includes('node_modules')) {
-  //           return id.toString().split('node_modules/')[1].split('/')[0].toString();
-  //         }
-  //       },
-  //     },
-  //   },
-  // },
+  build: {
+    chunkSizeWarningLimit: 1500, // in kB
+    rollupOptions: {
+      output: {
+        // dir: "./build",
+        // manualChunks(id) {
+        //   if (id.includes('node_modules')) {
+        //     return id.toString().split('node_modules/')[1].split('/')[0].toString();
+        //   }
+        // },
+      },
+    },
+  },
+  optimizeDeps: {
+    include: ['vue-router', 'bootstrap/scss/bootstrap.scss'],
+    exclude: ['vue', '@vitejs/plugin-vue'],
+  },
+  cacheDir: './.vite_cache',
 });
 
 function shareResourcePlugin(): Plugin {

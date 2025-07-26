@@ -4,7 +4,6 @@ import { type CaseViewConfig } from '@/types/caseView';
 import { getResource } from '@/utils/utils';
 // import DOMPurify from 'dompurify';
 const props = defineProps<{ config: CaseViewConfig }>();
-console.debug({ config: props.config });
 
 const htmlContent = ref<string>('');
 const sanitizedHtml = ref<string>('');
@@ -18,7 +17,6 @@ onMounted(async () => {
     const doc = parser.parseFromString(htmlContent.value, 'text/html');
     buildFigureFromImage(doc);
     sanitizedHtml.value = doc.body.innerHTML;
-    // sanitizedHtml.value = DOMPurify.sanitize(htmlContent.value);
   } catch (error) {
     console.error('Failed to load HTML:', error);
     sanitizedHtml.value = '<p>Error loading content</p>';
@@ -33,7 +31,7 @@ function buildFigureFromImage(d: Document): void {
     const $e = $(e);
     const desc = $e.attr('alt');
     $e.wrap(`<div class="${css}"><figure></figure></div>`).after(`<figcaption>${desc}</figcaption>`);
-    console.debug({ e, desc, parent: $e.parent() });
+    // console.debug({ e, desc, parent: $e.parent() });
   });
 }
 </script>
@@ -111,7 +109,6 @@ function buildFigureFromImage(d: Document): void {
 
     & > figure {
       width: 200px;
-      // height: 200px;
       background-color: $gray-500;
       padding: 10px;
       margin: 5px;
@@ -127,8 +124,6 @@ function buildFigureFromImage(d: Document): void {
 
       & img {
         width: 100%;
-        // height: 100%;
-        // width: 200px;
         height: auto;
         max-height: 200px;
         object-fit: contain;
@@ -151,6 +146,7 @@ function buildFigureFromImage(d: Document): void {
       left: -1em;
     }
   }
+
   h1,
   h2,
   h3 {

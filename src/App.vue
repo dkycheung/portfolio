@@ -3,6 +3,7 @@ import { RouterView } from 'vue-router';
 import { onMounted } from 'vue';
 import { setCSSRootVariables } from './utils/utils';
 import AppHeader from './components/AppHeader.vue';
+
 onMounted(() => {
   setCSSRootVariables(
     { key: 'main-bg-color', value: '#b1fcf9' },
@@ -31,10 +32,8 @@ body {
 }
 
 #app {
-  // background: #b1fcf9 url('#{$resource-base}img/background-pc.jpg') no-repeat top center !important;
   background: #000000 url('#{$resource-base}img/background-pc.jpg') no-repeat top center;
   background-size: 100% 100%;
-  // min-height: 600px;
   min-height: $app-height;
   position: relative;
   border: #444444;

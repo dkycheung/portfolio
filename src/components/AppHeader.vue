@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getResource } from '@/utils/utils';
 
@@ -7,14 +7,6 @@ const router = useRouter();
 const route = useRoute();
 
 const canBack = computed(() => route.path !== '/');
-// const canBack = computed(() => window.history.length > 1);
-
-// watch(
-//   () => route.path,
-//   (value, oldValue) => {
-//     console.debug({ value, oldValue, route: route.path, router });
-//   },
-// );
 
 function back(event: Event) {
   event.preventDefault();

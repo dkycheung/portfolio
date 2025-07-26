@@ -29,3 +29,13 @@ coverage
 
 *.tsbuildinfo
 public/resources
+.vite_cache/deps/_metadata.json
+.vite_cache/deps/baffle.js
+.vite_cache/deps/baffle.js.map
+.vite_cache/deps/chunk-BUSYA2B4.js
+.vite_cache/deps/chunk-BUSYA2B4.js.map
+.vite_cache/deps/jquery.js
+.vite_cache/deps/jquery.js.map
+.vite_cache/deps/package.json
+.vite_cache/deps/vue-router.js
+.vite_cache/deps/vue-router.js.map

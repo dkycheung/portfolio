@@ -10,18 +10,14 @@ const main = ref<HTMLElement | null>(null);
 
 const chars = 'asdfgjkhlqwertyuiopzxcvbnm';
 
-import('@/components/CaseListItem.vue').then(console.log);
-
 onMounted(() => {
   const b = new BouncingIcons($('.bouncing-icon'), $('.boundary'));
-  // console.debug({ b });
+  b.start();
 
   const baffleOpt: BaffleOptions = { characters: chars, speed: 100 };
   baffle('#myNameTspan', baffleOpt).start().reveal(2000);
   baffle('#myRole1Tspan', baffleOpt).start().reveal(3000);
   baffle('#myRole2Tspan', baffleOpt).start().reveal(4000);
-
-  b.start();
 });
 
 function linkTo(event: Event, url: string) {
@@ -165,7 +161,6 @@ function linkTo(event: Event, url: string) {
     <BouncingIcon v-for="(icon, index) in homeviewList" :key="`svg-${index}`">
       <template #svg>
         <component :is="icon" />
-        <!-- <component v-html="icon" /> when icon is svg raw text -->
       </template>
     </BouncingIcon>
     <div class="main-panel flex-fill container-fluid align-content-center">
@@ -227,18 +222,17 @@ function linkTo(event: Event, url: string) {
     height: 30px;
     box-sizing: content-box;
     padding: 5px;
-
-    .logo {
-      display: block;
-      margin: 0 2.5px;
-      box-sizing: content-box;
-      padding: 5px;
-      width: auto;
-      height: 100%;
-      fill: #0bd8acff;
-      background-color: rgba($dark, 0.5);
-      border-radius: 5px;
-    }
+  }
+  .links .logo {
+    display: block;
+    margin: 0 2.5px;
+    box-sizing: content-box;
+    padding: 5px;
+    width: auto;
+    height: 100%;
+    fill: #0bd8acff;
+    background-color: rgba($dark, 0.5);
+    border-radius: 5px;
   }
 }
 
@@ -254,22 +248,22 @@ function linkTo(event: Event, url: string) {
   @include media-mobile {
     height: $mobile-height-strict;
   }
+}
 
-  #myNameSvg {
-    max-height: 100%;
-    width: 100%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+#myNameSvg {
+  max-height: 100%;
+  width: 100%;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 
-    text {
-      stroke: white;
-      stroke-width: 0.3px;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-opacity: 1;
-      fill: url('#linearGradient2');
-      fill-opacity: 1;
-      font-weight: 800;
-    }
+  text {
+    stroke: white;
+    stroke-width: 0.3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-opacity: 1;
+    fill: url('#linearGradient2');
+    fill-opacity: 1;
+    font-weight: 800;
   }
 }
 
@@ -291,26 +285,26 @@ function linkTo(event: Event, url: string) {
     --panel-height: 100px;
     top: calc($mobile-height-strict - var(--panel-height));
   }
+}
 
-  #myRolesSvg {
-    transform-origin: 0 0;
+#myRolesSvg {
+  transform-origin: 0 0;
 
-    max-height: 100%;
-    height: 100%;
-    max-width: 70%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+  max-height: 100%;
+  height: 100%;
+  max-width: 70%;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 
-    text {
-      stroke: white;
-      stroke-width: 0.3px;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-opacity: 1;
-      // fill: white;
-      fill: url('#linearGradient4');
-      fill-opacity: 1;
-      font-weight: 800;
-    }
+  text {
+    stroke: white;
+    stroke-width: 0.3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-opacity: 1;
+    // fill: white;
+    fill: url('#linearGradient4');
+    fill-opacity: 1;
+    font-weight: 800;
   }
 }
 
