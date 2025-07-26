@@ -39,4 +39,3 @@ public/resources
 .vite_cache/deps/package.json
 .vite_cache/deps/vue-router.js
 .vite_cache/deps/vue-router.js.map
-dist/*
