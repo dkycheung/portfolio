@@ -31,3 +31,5 @@ coverage
 .vite_cache/*
 /types/*
 /out/*
+.tscache/*
+tsconfig.tsbuildinfo
