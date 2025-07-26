@@ -2,7 +2,7 @@
 import { RouterView } from 'vue-router';
 import { onMounted } from 'vue';
 import { setCSSRootVariables } from './utils/utils';
-import AppHeader from './components/AppHeader.vue';
+import AppHeader from '@/components/AppHeader.vue';
 
 onMounted(() => {
   setCSSRootVariables(

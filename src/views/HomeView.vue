@@ -65,7 +65,6 @@ function linkTo(event: Event, url: string) {
             font-stretch: normal;
             font-size: 3.87786px;
             font-family: Georgia;
-            -inkscape-font-specification: 'Georgia, Bold';
             font-variant-ligatures: normal;
             font-variant-caps: normal;
             font-variant-numeric: normal;
@@ -91,8 +90,8 @@ function linkTo(event: Event, url: string) {
           id="myRolesText"
           transform="matrix(1.1932636,0,0,0.99872371,78.111334,-76.257227)"
         >
-          <tspan x="-65.361832" y="79.502625" id="tspan1">Programmer</tspan>
-          <tspan x="-65.361832" y="84.349949" id="tspan2">Web Developer</tspan>
+          <tspan x="-65.361832" y="79.502625" id="myRole1Tspan">Programmer</tspan>
+          <tspan x="-65.361832" y="84.349949" id="myRole2Tspan">Web Developer</tspan>
         </text>
       </g>
     </svg>
@@ -126,7 +125,6 @@ function linkTo(event: Event, url: string) {
             font-stretch: normal;
             font-size: 4.23333px;
             font-family: Georgia;
-            -inkscape-font-specification: 'Georgia, Bold';
             font-variant-ligatures: normal;
             font-variant-caps: normal;
             font-variant-numeric: normal;

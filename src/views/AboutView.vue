@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getResource } from '../utils/utils';
+import { getResource } from '@/utils/utils';
 </script>
 
 <template>
