@@ -39,3 +39,9 @@ public/resources
 .vite_cache/deps/package.json
 .vite_cache/deps/vue-router.js
 .vite_cache/deps/vue-router.js.map
+dist/favicon.ico
+dist/index.html
+dist/assets/AboutView-BSqdbVzy.js
+dist/assets/AboutView-CSIvawM9.css
+dist/assets/index-BpQyUzEp.css
+dist/assets/index-CrigPgzr.js
