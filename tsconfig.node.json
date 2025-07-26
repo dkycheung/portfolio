@@ -19,7 +19,13 @@
 
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["node"],
+    // "types": ["node"],
+    // "types": ["node", "vite/client"],
+    "types": ["node", "rollup"],
+    "paths": {
+      "rollup/parseAst": ["./node_modules/rollup/dist/parseAst.d.ts"],
+      "rollup": ["./node_modules/rollup/dist/rollup.d.ts"]
+    },
     "target": "esnext"
   }
 }
