@@ -1,0 +1,15 @@
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [master] # Trigger on pushes to `main`
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install && npm run build # Build step (adjust as needed)
+      - name: Deploy to GH Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist # Your built folder (e.g., React/Vue output)
