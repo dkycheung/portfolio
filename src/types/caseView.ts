@@ -1,6 +1,8 @@
 export interface CaseViewConfig {
   title: string;
   contentUrl: string;
+  company?: string;
+  role: string;
   description?: string;
   year?: string;
   thumbnailUrl?: string;
