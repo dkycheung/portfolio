@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "for /f %i in ('git rev-parse --short HEAD') do set VITE_RESOURCE_HASH=%i && vite build",
+    "build": "node -e \"try { const hash = require('child_process').execSync('git rev-parse --short HEAD').toString().trim(); process.env.VITE_RESOURCE_HASH = hash; } catch (e) { process.env.VITE_RESOURCE_HASH = 'no-git'; } require('child_process').execSync('vite build', { stdio: 'inherit' });\"",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
