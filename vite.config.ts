@@ -13,6 +13,7 @@ const fileRegex = /^(?<path>.*\/)(?<filename>[^/]+?)\.(?<filetype>[^/.]+)(?:\?(?
 // https://vite.dev/config/
 export default defineConfig({
   base: '/portfolio/',
+  // envDir: '/env',
   plugins: [
     vue(),
     vueJsx(),
@@ -68,14 +69,16 @@ export default defineConfig({
           if (id.includes('src/components/')) {
             const mg = id.match(fileRegex)?.groups;
             console.log(
-              `Catch component: ${mg?.filename}.${mg?.filetype}${mg?.query != undefined ? ' (' + mg.query + ')' : ''}`,
+              `Catch component: ${mg?.filename}.${mg?.filetype}${mg?.query != undefined ? ' (?' + mg.query + ')' : ''}`,
             );
             // console.log(`Catch component: ${id}`);
             return mg?.filename ?? 'components';
           }
           if (id.includes('src/views/')) {
             const mg = id.match(fileRegex)?.groups;
-            console.log(`Catch view: ${mg?.filename}.${mg?.filetype}${mg != undefined ? ' (' + mg.query + ')' : ''}`);
+            console.log(
+              `Catch view: ${mg?.filename}.${mg?.filetype}${mg?.query != undefined ? ' (?' + mg.query + ')' : ''}`,
+            );
             // console.log(`Catch view: ${id}`);
             return mg?.filename ?? 'views';
             // return 'components';

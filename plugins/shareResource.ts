@@ -18,11 +18,13 @@ export default function shareResourcePlugin(): Plugin {
 
 function sharedResourcesHandler() {
   return (req: Connect.IncomingMessage, res: http.ServerResponse, next: NextFunction) => {
-    const url = req.originalUrl ?? req.url ?? '';
+    const rawUrl = req.originalUrl ?? req.url ?? '';
     const dir = path.resolve(__dirname, '../../resources');
-    const relPath = url.replace(/^\/resources/, '');
-    const filePath = path.join(dir, relPath);
-    console.debug({ dir, request: url, redirected: filePath });
+    const relPath = rawUrl.replace(/^\/resources/, '');
+    const filePath = URL.parse(path.join(dir, relPath))?.pathname ?? '';
+    // const url = URL.parse(filePath);
+    console.debug({ request: rawUrl, redirected: filePath /* debug: { dir, url, relPath, meta: import.meta } */ });
+
     try {
       if (fs.existsSync(filePath) && !fs.lstatSync(filePath).isDirectory()) {
         res.setHeader('Content-Type', getMimeType(filePath));
