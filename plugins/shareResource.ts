@@ -1,9 +1,8 @@
-import { Plugin, Connect } from 'vite';
 import { NextFunction } from 'express';
+import fs from 'fs';
 import http from 'node:http';
 import path from 'node:path';
-import fs from 'fs';
-import { fileURLToPath } from 'node:url';
+import { Connect, Plugin } from 'vite';
 
 console.debug(`shareResources.ts: `, {});
 
@@ -22,11 +21,10 @@ export default function shareResourcePlugin(): Plugin {
 function sharedResourcesHandler() {
   return (req: Connect.IncomingMessage, res: http.ServerResponse, next: NextFunction) => {
     const url = req.originalUrl ?? req.url ?? '';
-    const dir = fileURLToPath(import.meta.url);
+    const dir = path.resolve(__dirname, '../../resources');
     const relPath = url.replace(/^\/resources/, '');
-    const filePath = path.join(__dirname, '../../resources', relPath);
-    console.debug({ dir, originalUrl: req.originalUrl, url: req.url });
-    console.debug({ request: url, redirected: filePath });
+    const filePath = path.join(dir, relPath);
+    console.debug({ dir, request: url, redirected: filePath });
     try {
       if (fs.existsSync(filePath) && !fs.lstatSync(filePath).isDirectory()) {
         res.setHeader('Content-Type', getMimeType(filePath));
