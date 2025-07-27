@@ -4,8 +4,6 @@ import http from 'node:http';
 import path from 'node:path';
 import { Connect, Plugin } from 'vite';
 
-console.debug(`shareResources.ts: `, {});
-
 export default function shareResourcePlugin(): Plugin {
   return {
     name: 'shared-resources',

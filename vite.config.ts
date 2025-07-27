@@ -8,6 +8,8 @@ import path from 'path';
 import vueDevTools from 'vite-plugin-vue-devtools';
 import plugins from './plugins/plugins';
 
+const fileRegex = /^(?<path>.*\/)(?<filename>[^/]+?)\.(?<filetype>[^/.]+)(?:\?(?<query>[^#]*))?(?:#.*)?$/;
+
 // https://vite.dev/config/
 export default defineConfig({
   base: '/portfolio/',
@@ -52,6 +54,7 @@ export default defineConfig({
   },
   build: {
     // chunkSizeWarningLimit: 1500, // in kB
+    emptyOutDir: true,
     rollupOptions: {
       output: {
         chunkFileNames: 'assets/[name]-[hash].js',
@@ -63,14 +66,20 @@ export default defineConfig({
             return 'vendor';
           }
           if (id.includes('src/components/')) {
-            console.log(`Catch component: ${id}`);
-            return 'components';
+            const mg = id.match(fileRegex)?.groups;
+            console.log(
+              `Catch component: ${mg?.filename}.${mg?.filetype}${mg?.query != undefined ? ' (' + mg.query + ')' : ''}`,
+            );
+            // console.log(`Catch component: ${id}`);
+            return mg?.filename ?? 'components';
           }
           if (id.includes('src/views/')) {
-            console.log(`Catch view: ${id}`);
-            return 'components';
+            const mg = id.match(fileRegex)?.groups;
+            console.log(`Catch view: ${mg?.filename}.${mg?.filetype}${mg != undefined ? ' (' + mg.query + ')' : ''}`);
+            // console.log(`Catch view: ${id}`);
+            return mg?.filename ?? 'views';
+            // return 'components';
           }
-          console.log(`Catch other: ${id}`);
         },
       },
     },

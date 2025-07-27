@@ -1,7 +1,12 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createDynamicRoutes, getCaseList, getJobExp } from '@/utils/dynamicLoading';
 import HomeView from '@/views/HomeView.vue';
-import { createDynamicRoutes, getCaseList } from '@/utils/dynamicLoading';
-import { getJobExp } from '@/utils/dynamicLoading';
+import { type AsyncComponentLoader } from 'vue';
+import { createRouter, createWebHistory } from 'vue-router';
+
+// define all used components
+export const VIEW_COMPONENTS = {
+  CaseView: (() => import('@/views/CaseView.vue')) as AsyncComponentLoader,
+} as const;
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,19 +22,17 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue'),
+      component: () => import('@/views/AboutView.vue'),
     },
     {
       path: '/job-exp',
       name: 'Job Experence',
-      component: () => import('../views/CaseListView.vue'),
+      component: () => import('@/views/CaseListView.vue'),
       props: { title: 'Job Experences', caseList: getCaseList() },
     },
   ],
 });
 
-(await createDynamicRoutes(await getJobExp(), '/job-exp', '../views/CaseView')).forEach((route) =>
-  router.addRoute(route),
-);
+(await createDynamicRoutes(await getJobExp(), '/job-exp', 'CaseView')).forEach((route) => router.addRoute(route));
 
 export default router;

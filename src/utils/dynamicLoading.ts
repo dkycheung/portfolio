@@ -1,6 +1,7 @@
-import type { CaseListViewConfig, CaseViewConfig } from '../types/caseView';
-import { h, defineAsyncComponent, type AsyncComponentLoader } from 'vue';
+import { VIEW_COMPONENTS } from '@/router';
+import { defineAsyncComponent, h, type AsyncComponentLoader } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
+import type { CaseListViewConfig, CaseViewConfig } from '../types/caseView';
 
 const caseList: CaseListViewConfig[] = [];
 export function getCaseList(): ReadonlyArray<CaseListViewConfig> {
@@ -10,7 +11,7 @@ export function getCaseList(): ReadonlyArray<CaseListViewConfig> {
 export async function createDynamicRoutes(
   routeConfigs: CaseViewConfig[],
   path: string,
-  template: string,
+  viewName: keyof typeof VIEW_COMPONENTS,
 ): Promise<RouteRecordRaw[]> {
   return routeConfigs.map((route, index) => {
     const finalPath = `${path}/${index}`;
@@ -18,19 +19,19 @@ export async function createDynamicRoutes(
     return {
       path: `${path}/${index}`,
       name: route.title,
-      component: createDynamicComponent(template),
+      component: createDynamicComponent(viewName),
       props: { config: route },
     };
   });
 }
 
-function createDynamicComponent(templateName: string): AsyncComponentLoader {
+function createDynamicComponent(viewName: keyof typeof VIEW_COMPONENTS): AsyncComponentLoader {
   return defineAsyncComponent({
-    loader: () => import(/* @vite-ignore */ `${templateName}.vue`),
+    loader: VIEW_COMPONENTS[viewName],
     loadingComponent: () => h('div', { class: 'spinner-border text-warning' }),
     errorComponent: () => h('div', 'Template load failed'),
     delay: 200,
-    timeout: 300,
+    timeout: 3000,
   });
 }
 
