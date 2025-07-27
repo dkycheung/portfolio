@@ -1,14 +1,14 @@
 import { fileURLToPath, URL } from 'node:url';
-import { Connect, defineConfig, Plugin } from 'vite';
+import { defineConfig } from 'vite';
 // import { visualizer } from 'rollup-plugin-visualizer';
+import inject from '@rollup/plugin-inject';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-import vueDevTools from 'vite-plugin-vue-devtools';
-import inject from '@rollup/plugin-inject';
-import fs from 'fs';
 import path from 'path';
-import http from 'node:http';
-import { NextFunction } from 'express';
+import vueDevTools from 'vite-plugin-vue-devtools';
+import plugins from './plugins/plugins';
+
+const fileRegex = /^(?<path>.*\/)(?<filename>[^/]+?)\.(?<filetype>[^/.]+)(?:\?(?<query>[^#]*))?(?:#.*)?$/;
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -18,8 +18,7 @@ export default defineConfig({
     vueJsx(),
     vueDevTools(),
     inject({ $: 'jquery', jQuery: 'jquery' }),
-    shareResourcePlugin(),
-    debugUrl(),
+    ...plugins,
     // visualizer({ open: true }),
   ],
   resolve: {
@@ -35,10 +34,6 @@ export default defineConfig({
         @import '@/assets/main.scss';
         $resource-base: '/resources/';
         `,
-        // additionalData: `
-        // @import '@/assets/main.scss';
-        // $resource-base: '${process.env.NODE_ENV === 'production' ? '/resources/' : '/resources/'}';
-        // `,
       },
     },
     devSourcemap: false,
@@ -57,80 +52,41 @@ export default defineConfig({
     strictPort: true,
     headers: { 'cache-control': 'public, max-age=0' },
   },
-  // build: {
-  //   chunkSizeWarningLimit: 1500, // in kB
-  //   rollupOptions: {
-  //     output: {
-  //       // dir: "./build",
-  //       // manualChunks(id) {
-  //       //   if (id.includes('node_modules')) {
-  //       //     return id.toString().split('node_modules/')[1].split('/')[0].toString();
-  //       //   }
-  //       // },
-  //     },
-  //   },
-  // },
+  build: {
+    // chunkSizeWarningLimit: 1500, // in kB
+    emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash][extname]',
+        // Ensure dynamic imports are preserved
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+          if (id.includes('src/components/')) {
+            const mg = id.match(fileRegex)?.groups;
+            console.log(
+              `Catch component: ${mg?.filename}.${mg?.filetype}${mg?.query != undefined ? ' (' + mg.query + ')' : ''}`,
+            );
+            // console.log(`Catch component: ${id}`);
+            return mg?.filename ?? 'components';
+          }
+          if (id.includes('src/views/')) {
+            const mg = id.match(fileRegex)?.groups;
+            console.log(`Catch view: ${mg?.filename}.${mg?.filetype}${mg != undefined ? ' (' + mg.query + ')' : ''}`);
+            // console.log(`Catch view: ${id}`);
+            return mg?.filename ?? 'views';
+            // return 'components';
+          }
+        },
+      },
+    },
+  },
   optimizeDeps: {
     include: ['vue-router', 'bootstrap/scss/bootstrap.scss'],
     exclude: ['vue', '@vitejs/plugin-vue'],
   },
   cacheDir: './.vite_cache',
 });
-
-function debugUrl(): Plugin {
-  return {
-    name: 'debug-urls',
-    transform(code, id) {
-      // console.log({ code, id });
-      if (code.includes('new URL(')) {
-        console.log(`URL construction in ${id}:`, code.match(/new UR:\(.*?\)/g));
-      }
-    },
-  };
-}
-
-function shareResourcePlugin(): Plugin {
-  return {
-    name: 'shared-resources',
-    configureServer(server) {
-      server.middlewares.use('/resources', sharedResourcesHandler());
-    },
-    configurePreviewServer(server) {
-      server.middlewares.use('/resources', sharedResourcesHandler());
-    },
-  };
-}
-
-function sharedResourcesHandler() {
-  return (req: Connect.IncomingMessage, res: http.ServerResponse, next: NextFunction) => {
-    const url = req.originalUrl ?? req.url ?? '';
-    const relPath = url.replace(/^\/resources/, '');
-    const filePath = path.join(__dirname, '../resources', relPath);
-    console.debug({ request: url, redirected: filePath });
-    try {
-      if (fs.existsSync(filePath) && !fs.lstatSync(filePath).isDirectory()) {
-        res.setHeader('Content-Type', getMimeType(filePath));
-        fs.createReadStream(filePath).pipe(res);
-      } else {
-        res.statusCode = 404;
-        res.end('Not found');
-      }
-    } catch (err) {
-      next(err);
-    }
-  };
-}
-
-function getMimeType(filePath: string): string {
-  const ext = path.extname(filePath).toLowerCase();
-  const mimeTypes: Record<string, string> = {
-    '.jpg': 'image/jpeg',
-    '.jpeg': 'image/jpeg',
-    '.png': 'image/png',
-    '.html': 'text/html',
-    '.htm': 'text/html',
-    '.svg': 'image/svg+xml',
-    // Add other MIME types as needed
-  };
-  return mimeTypes[ext] || 'application/octet-stream';
-}
