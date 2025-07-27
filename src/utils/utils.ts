@@ -10,16 +10,14 @@ export function getResource(resourcePath: string | undefined): string {
 }
 
 export function getAbsoluteUrl(path: string, baseUrl?: string): string {
+  const hash = import.meta.env.VITE_RESOURCE_HASH ?? undefined;
   try {
-    if (baseUrl) {
-      const baseurl = new URL(baseUrl);
-      const url = new URL(path, baseurl);
-      console.debug({ path, baseUrl, baseurl, url: url?.href });
-      return url?.href;
+    const url = baseUrl == null ? new URL(path) : new URL(path, new URL(baseUrl));
+    if (hash != undefined) {
+      url.searchParams.append('v', hash);
     }
-    const url = URL.parse(path)?.href ?? path;
-    console.debug({ path, url });
-    return url;
+    console.debug({ path, baseUrl, url: url?.href });
+    return url.href;
   } catch (error) {
     console.debug({ path, baseUrl, error });
     throw error;

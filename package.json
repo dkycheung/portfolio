@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "for /f %i in ('git rev-parse --short HEAD') do set VITE_RESOURCE_HASH=%i && vite build",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
@@ -37,6 +37,7 @@
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.5.1",
     "@vue/tsconfig": "^0.7.0",
+    "cross-env": "^10.0.0",
     "eslint": "^9.29.0",
     "eslint-plugin-vue": "~10.2.0",
     "fs-extra": "^11.3.0",
