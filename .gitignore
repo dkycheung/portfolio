@@ -27,7 +27,7 @@ coverage
 *.sln
 *.sw?
 
-
+/dist/*
 .vite_cache/*
 /types/*
 /out/*
