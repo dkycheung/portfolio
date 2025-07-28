@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { type CaseViewConfig } from '@/types/caseView';
 import { getResource } from '@/utils/utils';
+import { formatNewLine } from '@/utils/htmlHelper';
 // import DOMPurify from 'dompurify';
 const props = defineProps<{ config: CaseViewConfig }>();
 
@@ -37,11 +38,43 @@ function buildFigureFromImage(d: Document): void {
 </script>
 
 <template ref="html-ref">
-  <div class="html-header" :style="{ backgroundImage: `url(${backgroundUrl})` }">
-    <h1>{{ config.title }}</h1>
-    <div class="info">
-      {{ config.description }} <br />
-      {{ config.year }}
+  <div class="html-header row align-content-between" :style="{ backgroundImage: `url(${backgroundUrl})` }">
+    <div class="links col align-content-end">
+      <a
+        v-if="config.siteUrl != undefined"
+        :href="config.siteUrl"
+        target="_blank"
+        class="website-btn icon-link btn btn-secondary justify-content-center"
+      >
+        <span>Website</span>
+        <i class="bi bi-box-arrow-up-right"></i>
+      </a>
+      <span v-else-if="config.appUrl?.apple != undefined || config.appUrl?.google != undefined">
+        <a
+          v-if="config.appUrl?.apple != undefined"
+          :href="config.appUrl?.apple"
+          target="_blank"
+          class="app-btn icon-link btn btn-secondary justify-content-center"
+        >
+          <!-- <span>Website</span> -->
+          <i class="bi bi-apple"></i>
+        </a>
+        <a
+          v-if="config.appUrl?.google != undefined"
+          :href="config.appUrl?.google"
+          target="_blank"
+          class="app-btn icon-link btn btn-secondary justify-content-center"
+        >
+          <!-- <span>Website</span> -->
+          <i class="bi bi-google-play"></i>
+        </a>
+      </span>
+      <span v-else>&nbsp;</span>
+    </div>
+    <h1 class="text-center" v-html="formatNewLine(config.title)"></h1>
+    <div class="info col align-content-end">
+      <span v-html="formatNewLine(config.role)"></span><br />
+      <span v-html="formatNewLine(config.year)"></span>
     </div>
   </div>
   <div v-html="sanitizedHtml" class="inner-html clearfix"></div>
@@ -49,15 +82,16 @@ function buildFigureFromImage(d: Document): void {
 
 <style lang="scss">
 .html-header {
-  display: flex;
+  // display: flex;
   position: relative;
   width: 100%;
   height: 300px;
   background-size: 100% auto;
   background-position: center center;
   border-radius: 10px 10px 0 0;
-  align-items: center;
-  justify-content: center;
+  margin-left: 0;
+  // align-items: center;
+  // justify-content: center;
   text-shadow: 4px 4px $gray-700;
 
   @include media-mobile {
@@ -71,19 +105,67 @@ function buildFigureFromImage(d: Document): void {
     font-size: 5em;
     color: $light;
     @include media-mobile {
-      font-size: 2.5em;
+      font-size: 2em;
     }
   }
 
-  & .info {
+  .links {
     color: $light;
-    position: absolute;
+    position: relative;
+    top: 20px;
+    right: 20px;
+    text-align: end;
+
+    @include media-mobile {
+      top: 10px;
+      right: 10px;
+    }
+
+    .website-btn {
+      color: $light;
+      text-decoration: none;
+
+      @include media-mobile {
+        width: fit-content !important;
+        height: fit-content !important;
+        --bs-btn-padding-y: 0.1rem;
+        --bs-btn-padding-x: 0.2rem;
+        --bs-btn-font-size: 0.75rem;
+        --bs-btn-border-radius: var(--bs-border-radius-sm);
+      }
+    }
+
+    .app-btn {
+      color: $light;
+      text-decoration: none;
+      width: fit-content !important;
+      height: fit-content !important;
+      margin: 0 0.2rem;
+
+      @include media-mobile {
+        --bs-btn-padding-y: 0.1rem;
+        --bs-btn-padding-x: 0.2rem;
+        --bs-btn-font-size: 0.75rem;
+        --bs-btn-border-radius: var(--bs-border-radius-sm);
+      }
+    }
+
+    .bi {
+      height: unset;
+      width: unset;
+    }
+  }
+  .info {
+    color: $light;
+    position: relative;
+    // position: absolute;
     bottom: 20px;
     right: 20px;
     text-align: end;
     @include media-mobile {
       bottom: 10px;
       right: 10px;
+      font-size: 0.75rem;
     }
   }
 }
@@ -109,7 +191,7 @@ function buildFigureFromImage(d: Document): void {
 
     & > figure {
       width: 200px;
-      background-color: $gray-500;
+      background-color: $secondary;
       padding: 10px;
       margin: 5px;
       border-radius: 10px;
@@ -136,6 +218,7 @@ function buildFigureFromImage(d: Document): void {
       }
     }
 
+    // fixing outside list overlapping
     &.float-start,
     &.float-sm-start,
     &.float-md-start,

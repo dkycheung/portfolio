@@ -5,6 +5,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 // define all used components
 export const VIEW_COMPONENTS = {
+  About: (() => import('@/views/AboutView.vue')) as AsyncComponentLoader,
+  CaseListView: (() => import('@/views/CaseListView.vue')) as AsyncComponentLoader,
   CaseView: (() => import('@/views/CaseView.vue')) as AsyncComponentLoader,
 } as const;
 
@@ -19,16 +21,13 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('@/views/AboutView.vue'),
+      component: VIEW_COMPONENTS['About'],
     },
     {
       path: '/job-exp',
-      name: 'Job Experence',
-      component: () => import('@/views/CaseListView.vue'),
-      props: { title: 'Job Experences', caseList: getCaseList() },
+      name: 'Work',
+      component: VIEW_COMPONENTS['CaseListView'],
+      props: { title: 'Work', caseList: getCaseList() },
     },
   ],
 });

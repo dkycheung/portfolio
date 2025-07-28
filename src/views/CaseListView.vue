@@ -5,11 +5,12 @@ import { getResource } from '@/utils/utils';
 import { onMounted } from 'vue';
 import { Carousel } from 'bootstrap';
 import { formatNewLine } from '@/utils/htmlHelper';
-defineProps<{
+
+const props = defineProps<{
   title: string;
   caseList: CaseListViewConfig[];
 }>();
-
+console.log(props.caseList);
 function imgError(event: Event) {
   event.preventDefault();
   const img = event.target as HTMLImageElement;
@@ -20,7 +21,7 @@ function imgError(event: Event) {
 onMounted(() => {
   const caseCarousel = new Carousel('#caseCarousel');
   caseCarousel.cycle();
-  console.debug(caseCarousel);
+  // console.debug(caseCarousel);
 });
 </script>
 
