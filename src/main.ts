@@ -1,6 +1,7 @@
 // import './assets/main.css';
 // import './assets/bootstrap-custom-scheme.scss';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import { createApp } from 'vue';
 import App from './App.vue';

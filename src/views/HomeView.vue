@@ -28,21 +28,17 @@ function linkTo(event: Event, url: string) {
 </script>
 
 <template>
-  <svg style="display: none">
-    <defs>
-      <filter id="glow-effect" x="-5%" y="-5%" width="110%" height="110%">
-        <feGaussianBlur stdDeviation="1" result="blur" />
-        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-      </filter>
-    </defs>
-  </svg>
   <div class="bottom-panel">
     <svg viewBox="0 0 37.041665 8.995833" id="myRolesSvg" xmlns="http://www.w3.org/2000/svg">
       <defs id="defs1">
+        <filter id="glow-effect" x="-5%" y="-5%" width="110%" height="110%">
+          <feGaussianBlur stdDeviation="1" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
         <linearGradient id="linearGradient1">
-          <stop style="stop-color: #0700f3; stop-opacity: 1" offset="0" id="stop1" />
-          <stop style="stop-color: #ecff00; stop-opacity: 1" offset="0.52556038" id="stop13" />
-          <stop style="stop-color: #ac3107; stop-opacity: 1" offset="1" id="stop2" />
+          <stop style="stop-color: #0a153b; stop-opacity: 1" offset="0" id="stop1" />
+          <stop style="stop-color: #60cadf; stop-opacity: 1" offset="0.52556038" id="stop13" />
+          <stop style="stop-color: #1d429b; stop-opacity: 1" offset="1" id="stop2" />
         </linearGradient>
         <linearGradient
           xlink:href="#linearGradient1"
@@ -98,23 +94,6 @@ function linkTo(event: Event, url: string) {
   </div>
   <div class="right-panel">
     <svg viewBox="0 0 4.19377 33.047497" id="myNameSvg" xmlns="http://www.w3.org/2000/svg">
-      <defs id="defs1">
-        <linearGradient id="linearGradient1">
-          <stop style="stop-color: #0700f3; stop-opacity: 1" offset="0" id="stop1" />
-          <stop style="stop-color: #ecff00; stop-opacity: 1" offset="0.52556038" id="stop13" />
-          <stop style="stop-color: #ac3107; stop-opacity: 1" offset="1" id="stop2" />
-        </linearGradient>
-        <linearGradient
-          xlink:href="#linearGradient1"
-          id="linearGradient2"
-          x1="35.677586"
-          y1="52.132885"
-          x2="49.367592"
-          y2="52.211395"
-          gradientUnits="userSpaceOnUse"
-          gradientTransform="matrix(2.406343,0,0,2.4063429,-151.09941,-47.266484)"
-        />
-      </defs>
       <g id="layer1" transform="translate(-0.54894798,-0.67416788)">
         <text
           xml:space="preserve"
@@ -163,27 +142,27 @@ function linkTo(event: Event, url: string) {
     </BouncingIcon>
     <div class="main-panel flex-fill container-fluid align-content-center">
       <div class="row justify-content-center p-2">
-        <RouterLink to="/about" class="btn btn-primary">About</RouterLink>
+        <RouterLink to="/about" class="btn btn-link">About Me</RouterLink>
       </div>
       <div class="row justify-content-center p-2">
-        <RouterLink to="/job-exp" class="btn btn-success">Past Cases</RouterLink>
+        <RouterLink to="/job-exp" class="btn btn-link">My Works</RouterLink>
       </div>
       <div class="links row justify-content-center p-2">
         <img
           alt="Contact Me"
-          class="logo"
+          class="logo pe-auto"
           :src="`${getResource('./svg/mail.svg')}`"
           @click="linkTo($event, 'mailto:dkycheung@gmail.com')"
         />
         <img
           alt="LinkedIn"
-          class="logo"
+          class="logo pe-auto"
           :src="`${getResource('./svg/LinkedIn.svg')}`"
           @click="linkTo($event, 'http://www.linkedin.com/in/kwok-yiu-dennis-cheung-308181364')"
         />
         <img
           alt="GitHub"
-          class="logo"
+          class="logo pe-auto"
           :src="`${getResource('./svg/GitHub.svg')}`"
           @click="linkTo($event, 'https://github.com/dkycheung')"
         />
@@ -220,7 +199,9 @@ function linkTo(event: Event, url: string) {
     height: 30px;
     box-sizing: content-box;
     padding: 5px;
+    cursor: pointer;
   }
+
   .links .logo {
     display: block;
     margin: 0 2.5px;
@@ -231,6 +212,18 @@ function linkTo(event: Event, url: string) {
     fill: #0bd8acff;
     background-color: rgba($dark, 0.5);
     border-radius: 5px;
+  }
+
+  .btn-link {
+    color: #fff;
+    background-image: linear-gradient(to right, $my-theme-color1, $my-theme-color2);
+    border-color: $my-theme-color2;
+    text-decoration: none;
+
+    &:hover {
+      background-image: linear-gradient(to right, $my-theme-color2, $my-theme-color3);
+      border-color: $my-theme-color3;
+    }
   }
 }
 
@@ -252,17 +245,6 @@ function linkTo(event: Event, url: string) {
   max-height: 100%;
   width: 100%;
   font-family: Georgia, 'Times New Roman', Times, serif;
-
-  text {
-    stroke: white;
-    stroke-width: 0.3px;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-opacity: 1;
-    fill: url('#linearGradient2');
-    fill-opacity: 1;
-    font-weight: 800;
-  }
 }
 
 .bottom-panel {
@@ -292,18 +274,6 @@ function linkTo(event: Event, url: string) {
   height: 100%;
   max-width: 70%;
   font-family: Georgia, 'Times New Roman', Times, serif;
-
-  text {
-    stroke: white;
-    stroke-width: 0.3px;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-opacity: 1;
-    // fill: white;
-    fill: url('#linearGradient4');
-    fill-opacity: 1;
-    font-weight: 800;
-  }
 }
 
 .btn {
