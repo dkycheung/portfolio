@@ -31,3 +31,7 @@
 $app-height: calc(map.get($grid-breakpoints, xl) * 9 / 16);
 $mobile-height-strict: min($app-height, 100dvh);
 $mobile-height-loose: max(100dvh, 100%);
+
+$my-theme-color1: #0a153b;
+$my-theme-color2: #1d429b;
+$my-theme-color3: #60cadf;

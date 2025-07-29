@@ -8,17 +8,22 @@ import { getResource } from '@/utils/utils';
       <div class="col-12 col-md-4 avatar">
         <img class="" :src="getResource(`./img/avatar-l.png`)" title="Dennis Cheung" />
       </div>
-      <div class="col-12 col-md-8">
+      <div class="col-12 col-md-8 p-4">
         <p class="fs">
-          I am a Full-Stack Web Developer and Programmer based in Hong Kong, with years of experence in C# and
-          Javascript. I've have been writing/refactoring code and restful APIs using ASP.Net, connecting DB and thrid
-          parties APIs, and building CMS using various CMS firmworks, customizing lists/views, creating Components for
-          the needs of client's system.
+          Hi there, I'm Dennis Cheung from Hong Kong. I have been working for years with C# and Javascript, writing &
+          refactoring code, building RESTful Apis & working with other web services, database and CMS content, also
+          building interactive and responsive web interfaces for front-end users and CMS users with HTML/CSS and various
+          frameworks.
         </p>
-        <p class="fs">
-          I also create responsive and interactive web interface. Using HTML5, CSS3 and Javascripts or using modern
-          frontend frameworks depend on size of the project, cooperate closely with UX/UI designer to produce the best
-          possible visual outcome.
+        <p>
+          As a Web Developer, I have had the opportunity to work on variety of projects, ranging from Property Developer
+          to Accounting to Food and Beverage Group. Working on these projects helped me to understand the different
+          needs and development approach for each type of project. With good communication skill, I provide solutions to
+          client, discussing designs with UI/UX designer, and technique specifications with other developers.
+        </p>
+        <p>
+          With knowledges in many other languages (Typescript, SASS, PHP, JAVA, C++ etc) I built up a understanding of
+          programming so I can quickly adopte to new language/framworks as needed.
         </p>
       </div>
     </div>
@@ -27,7 +32,12 @@ import { getResource } from '@/utils/utils';
 
 <style lang="scss">
 .about-panel {
-  height: $app-height;
+  min-height: $app-height;
+
+  @include media-mobile {
+    min-height: unset;
+    height: $mobile-height-loose;
+  }
 
   .avatar {
     img {

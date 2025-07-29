@@ -53,7 +53,7 @@ header {
   margin-top: 0;
   padding: 3px 5px 5px 5px;
   box-sizing: content-box;
-  background-color: $dark;
+  background-color: rgba($dark, 0.5);
   border-radius: 0 0 18px 18px;
 }
 
