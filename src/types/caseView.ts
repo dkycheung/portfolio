@@ -5,10 +5,10 @@ export type AppUrls = {
 
 export interface CaseViewConfig {
   title: string;
-  contentUrl: string;
+  contentUrl?: string;
   company?: string;
   role: string;
-  // description?: string;
+  description?: string;
   year?: string;
   thumbnailUrl?: string;
   backgroundUrl?: string;

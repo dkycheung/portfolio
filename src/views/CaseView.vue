@@ -1,14 +1,21 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
 import { type CaseViewConfig } from '@/types/caseView';
-import { getResource } from '@/utils/utils';
 import { formatNewLine } from '@/utils/htmlHelper';
-// import DOMPurify from 'dompurify';
+import { getResource } from '@/utils/utils';
+import { onMounted, ref } from 'vue';
+
 const props = defineProps<{ config: CaseViewConfig }>();
 
 const htmlContent = ref<string>('');
 const sanitizedHtml = ref<string>('');
+const htmlRef = ref<HTMLDivElement>(null);
 const backgroundUrl = ref<string>(getResource(props.config.backgroundUrl) ?? '/');
+const modal = ref<HTMLDivElement>(null);
+const modalConfig = ref({
+  show: false,
+  img: '',
+  caption: '',
+});
 
 onMounted(async () => {
   try {
@@ -22,6 +29,16 @@ onMounted(async () => {
     console.error('Failed to load HTML:', error);
     sanitizedHtml.value = '<p>Error loading content</p>';
   }
+
+  const figures = htmlRef.value.getElementsByClassName('figure');
+  console.debug({ figures });
+
+  for (let i = 0; i < figures.length; i++) {
+    const e = figures[i];
+    e.addEventListener('click', onClickFigure);
+    console.debug(e);
+  }
+  console.debug('modal:', modal.value);
 });
 
 function buildFigureFromImage(d: Document): void {
@@ -32,12 +49,31 @@ function buildFigureFromImage(d: Document): void {
     const $e = $(e);
     const desc = $e.attr('alt');
     $e.wrap(`<div class="${css}"><figure></figure></div>`).after(`<figcaption>${desc}</figcaption>`);
-    // console.debug({ e, desc, parent: $e.parent() });
   });
+}
+
+function onClickFigure(event: MouseEvent) {
+  const target = (event.target as HTMLElement).closest('div.figure');
+  // console.log('clicked:', target);
+  if (target) {
+    const img = target.querySelector('img');
+    modalConfig.value = {
+      caption: img.alt,
+      img: img.src,
+      show: true,
+    };
+    console.debug(target, img, modalConfig.value);
+    event.preventDefault();
+  }
+}
+
+function closeFigure(event: Event) {
+  modalConfig.value = { caption: '', img: '', show: false };
+  event.preventDefault();
 }
 </script>
 
-<template ref="html-ref">
+<template>
   <div class="html-header row align-content-between" :style="{ backgroundImage: `url(${backgroundUrl})` }">
     <div class="links col align-content-end">
       <a
@@ -77,7 +113,12 @@ function buildFigureFromImage(d: Document): void {
       <span v-html="formatNewLine(config.year)"></span>
     </div>
   </div>
-  <div v-html="sanitizedHtml" class="inner-html clearfix"></div>
+  <div v-html="sanitizedHtml" ref="htmlRef" class="inner-html clearfix" @click="onClickFigure"></div>
+  <div id="imgModal" class="modal" :class="{ 'd-none': !modalConfig.show }" ref="modal">
+    <span class="close" @click="closeFigure"><i class="bi bi-x-circle"></i></span>
+    <img class="modal-content" :src="modalConfig.img" id="imgModalContent" />
+    <div id="imgModalCaption">{{ modalConfig.caption }}</div>
+  </div>
 </template>
 
 <style lang="scss">
@@ -172,7 +213,7 @@ function buildFigureFromImage(d: Document): void {
 
 .inner-html {
   background-color: antiquewhite;
-  padding: 40px 100px;
+  padding: 40px 15%;
   height: 100%;
   border-radius: 0 0 10px 10px;
   margin-bottom: 10px;
@@ -230,6 +271,57 @@ function buildFigureFromImage(d: Document): void {
     }
   }
 
+  ul {
+    &.scope {
+      list-style: none;
+      padding-left: 0;
+
+      & > li::before {
+        font-family: 'bootstrap-icons';
+        content: '\F1C7';
+        display: inline-block;
+        margin-right: 0.5rem;
+      }
+    }
+
+    &.tech {
+      list-style: none;
+      padding-left: 0;
+      max-width: max(70%, 420px);
+
+      & > li::before {
+        font-family: 'bootstrap-icons';
+        content: '\F5DB';
+        display: inline-block;
+        margin-right: 0.5rem;
+      }
+
+      ul.tech-list {
+        display: flex;
+        list-style: none;
+        padding-left: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: stretch;
+        justify-content: center;
+
+        & > li {
+          display: inline-block;
+          text-indent: 0;
+          padding: 0.2rem 0.5rem;
+          // border: 1px $primary solid;
+          border-radius: 0.5rem;
+          color: $light;
+          background-color: $success;
+          margin: 1px;
+          flex-grow: 1;
+          flex-shrink: 0;
+          // flex-basis: 50px;
+        }
+      }
+    }
+  }
+
   h1,
   h2,
   h3 {
@@ -251,6 +343,82 @@ function buildFigureFromImage(d: Document): void {
       text-indent: -1em;
       padding-left: 1em;
     }
+  }
+}
+
+a.new-link {
+  &::after {
+    font-family: 'bootstrap-icons';
+    font-size: 0.75rem;
+    content: '\F1C5';
+    display: inline-block;
+    margin-left: 1.2rem;
+  }
+}
+
+.modal {
+  // display: none;
+  --padding-top: 100px;
+  --padding-bottom: 150px;
+  display: block;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: var(--padding-top);
+  overflow: auto;
+  background-color: rgba($dark, 0.9);
+
+  .modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    max-height: calc(100vh - var(--padding-top) - var(--padding-bottom));
+    object-fit: contain;
+    background-color: transparent;
+
+    @include media-mobile {
+      width: 100%;
+    }
+  }
+
+  #imgModalCaption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: var(--padding-bottom);
+  }
+
+  @keyframes zoom {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  .close:hover,
+  .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
   }
 }
 </style>

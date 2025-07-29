@@ -47,6 +47,19 @@ export async function getJobExp(): Promise<CaseViewConfig[]> {
   }
 }
 
+let caseStdJson: CaseViewConfig[] | null;
+export async function getCaseStd(): Promise<CaseViewConfig[]> {
+  try {
+    return (
+      caseStdJson ??
+      (caseStdJson = (await (await fetch('/resources/content/case-std.json')).json()) as CaseViewConfig[])
+    );
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
 const rawSvgCache = new Map<string, string>();
 export async function getRawSvg(svgName: string): Promise<string> {
   try {
@@ -73,7 +86,3 @@ export async function getRawSvgs(svgNames: string[]): Promise<string[]> {
     .filter((r) => r.value !== undefined)
     .map((r) => r.value ?? '');
 }
-
-// export async function getCaseStd(): Promise<DynamicRouteConfig[]> {
-//   return [];
-// }

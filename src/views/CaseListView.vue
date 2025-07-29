@@ -21,13 +21,14 @@ function imgError(event: Event) {
 onMounted(() => {
   const caseCarousel = new Carousel('#caseCarousel');
   caseCarousel.cycle();
-  // console.debug(caseCarousel);
 });
 </script>
 
 <template style="">
   <div class="d-flex flex-column text-center">
-    <h2 class="title">{{ title }}</h2>
+    <div class="m-2">
+      <span class="title">{{ title }}</span>
+    </div>
     <div id="caseCarousel" class="carousel slide align-self-center" data-bs-ride="carousel">
       <div class="carousel-indicators">
         <button
@@ -92,8 +93,11 @@ onMounted(() => {
   flex: 0 0 auto;
   width: 100%;
   text-align: center;
-  padding-top: 0.5em;
-  margin-top: 0.5em;
+  padding: 5px 1em;
+  margin: 1em;
+  font-size: 2.5rem;
+
+  text-shadow: 4px 4px $gray-800;
 }
 
 #caseCarousel {

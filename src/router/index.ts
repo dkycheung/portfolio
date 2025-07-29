@@ -25,9 +25,9 @@ const router = createRouter({
     },
     {
       path: '/job-exp',
-      name: 'Work',
+      name: 'Works',
       component: VIEW_COMPONENTS['CaseListView'],
-      props: { title: 'Work', caseList: getCaseList() },
+      props: { title: 'Works', caseList: getCaseList() },
     },
   ],
 });
