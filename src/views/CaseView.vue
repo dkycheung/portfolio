@@ -107,7 +107,8 @@ function closeFigure(event: Event) {
       </span>
       <span v-else>&nbsp;</span>
     </div>
-    <h1 class="text-center" v-html="formatNewLine(config.title)"></h1>
+    <div class="project text-center" v-html="formatNewLine(config.title)"></div>
+    <div class="company text-center" v-html="formatNewLine(config.company)"></div>
     <div class="info col align-content-end">
       <span v-html="formatNewLine(config.role)"></span><br />
       <span v-html="formatNewLine(config.year)"></span>
@@ -141,12 +142,21 @@ function closeFigure(event: Event) {
     height: fit-content;
   }
 
-  h1 {
+  .project {
     font-weight: bolder;
     font-size: 5em;
     color: $light;
     @include media-mobile {
       font-size: 2em;
+    }
+  }
+
+  .company {
+    font-weight: bolder;
+    font-size: 2.5em;
+    color: $light;
+    @include media-mobile {
+      font-size: 1.5em;
     }
   }
 
